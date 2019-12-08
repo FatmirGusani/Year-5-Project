@@ -3,36 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//This is a test//
 
+//This is also another test//
 
-public class MyHealthSystem : MonoBehaviour
+public class EmeHealthSystem : MonoBehaviour
 {
-    //creates 2 event handlers, damage and heal
+    //Events notofiys when the health changes.
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
+    //public Text MyHP;
+    //public Text MyLevel;
 
-    //crated a varable for the health and maxhealth.
+    //public RectTransform mPanelGameOver;
+
+    //public Text GameWon;
+    //public Text GameLost;
+
     private int healthAmount;
     private int healthAmountMax;
 
-    public MyHealthSystem(int healthAmount)
+    public EmeHealthSystem(int healthAmount)
     {
         healthAmountMax = healthAmount;
         this.healthAmount = healthAmount;
     }
 
-    //This function damages our hero's health 
+    //This function damages the enemy's health 
     public void Damage(int amount)
     {
+        //if the enemy's health is less then or equal to 0.
         healthAmount -= amount;
-
         if (healthAmount <= 0)
         {
-            //if our health is less then or equal to 0. load the "gameover scene"
+            //Load the game won scene.
             healthAmount = 0;
-            Debug.Log("YOU LOSE");
-            SceneManager.LoadScene("GameOver");
+            Debug.Log("YOU WON");
+            SceneManager.LoadScene("GameWon");
         }
         if (OnDamaged != null)
         {
@@ -40,7 +46,7 @@ public class MyHealthSystem : MonoBehaviour
         }
     }
 
-    //This function heals our hero's health 
+    //This function heals the enemy's health 
     public void Heal(int amount)
     {
         healthAmount += amount;
@@ -49,11 +55,13 @@ public class MyHealthSystem : MonoBehaviour
             healthAmount = healthAmountMax;
         }
         if (OnHealed != null)
+        {
             OnHealed(this, EventArgs.Empty);
+        }
     }
 
-    //Function returns our current health 
-    public float MyGetHealthNormalized()
+    //Function returns enemy's current health 
+    public float GetHealthNormalized()
     {
         return (float)healthAmount / healthAmountMax;
     }

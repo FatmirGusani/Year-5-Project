@@ -10,13 +10,5 @@ public class FightSelect : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-
-
-
-
-
-
-
-
 }
 
