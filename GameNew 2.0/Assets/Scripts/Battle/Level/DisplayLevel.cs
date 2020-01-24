@@ -6,50 +6,43 @@ using UnityEngine.UI;
 
 public class DisplayLevel : MonoBehaviour
 {
-   // public Text MyHPText;
+    // public Text MyHPText;
     public Text ExpText;
     private Text LevelText;
     private Image ExpBar;
 
+    private static int KeepExp;
 
+    private MainMenu mainMenu;
     private LevelSystem levelSystem;
     //private HealthBar healthBar;
     private MyHealthSystem MyhealthSystem;
 
+
+
     private void Awake()
     {
-
+        ExpText = transform.Find("ExpText").GetComponent<Text>();
         LevelText = transform.Find("Level").GetComponent<Text>();
         ExpBar = transform.Find("ExpBar").GetComponent<Image>();
-        //transform.Find("AddExp").GetComponent<Button>();
-
-        //SetExperienceBarSize(.8f);
-        //SetLevelNumber(50);
-        //SetExp(43);
     }
 
-    private void SetExperienceBarSize(float ExperienceNormalized)
-    {
-        ExpBar.fillAmount = ExperienceNormalized;
-    }
 
-    private void SetLevelNumber (int LevelNumber)
+    private void SetLevelNumber(int LevelNumber)
     {
         LevelText.text = "Level : " + (LevelNumber);
     }
 
     public void AddExpButton()
     {
-        levelSystem.AddExperience(30);
+        levelSystem.AddExperience(Random.Range(10, 30));
         MyExpTextChange();
     }
 
     public void MyExpTextChange()
     {
         ExpText.text = levelSystem.ReturnExpText();
-
     }
-
 
     public void SetLevelSystem(LevelSystem levelSystem)
     {
@@ -59,13 +52,13 @@ public class DisplayLevel : MonoBehaviour
         //Update the starting value
         SetLevelNumber(levelSystem.GetLevelNumber());
         SetExperienceBarSize(levelSystem.GetExperienceNormalized());
+        //SetKeepExpBarSize(levelSystem.GetKeepExp());
 
         //sMyExpTextChange();
 
         //Surbscribe to the change events
         levelSystem.OnExperienceChange += LevelSystem_OnExperienceChange;
         levelSystem.OnLevelChange += LevelSystem_OnLevelChange;
-
     }
 
     private void LevelSystem_OnLevelChange(object sender, System.EventArgs e)
@@ -82,11 +75,8 @@ public class DisplayLevel : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
+    private void SetExperienceBarSize(float ExperienceNormalized)
+    {
+        ExpBar.fillAmount = ExperienceNormalized;
+    }
 }

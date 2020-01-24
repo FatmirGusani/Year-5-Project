@@ -4,11 +4,12 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
-public class LevelSystem 
+public class LevelSystem
 {
 
-    // Start is called before the first frame update
+    private MainMenu mainMenu;
 
+    // Start is called before the first frame update
     public event EventHandler OnExperienceChange;
     public event EventHandler OnLevelChange;
 
@@ -17,38 +18,51 @@ public class LevelSystem
     private int Experience;
     private int ExperienceNextLevel;
 
+    private static int KeepExp;
+    private static int KeepLevel;
+
     public LevelSystem()
     {
-        Level = 20;
-        Experience = 0;
+        Level = KeepLevel;
+        Experience = KeepExp;
+
         ExperienceNextLevel = 100;
+        KeepExp = 0;
+        KeepLevel = 20;
     }
 
     public void AddExperience(int amount)
     {
         Experience += amount;
-        if(Experience >= ExperienceNextLevel)
+        if (Experience >= ExperienceNextLevel)
         {
             Level++;
             Experience -= ExperienceNextLevel;
             if (OnLevelChange != null) OnLevelChange(this, EventArgs.Empty);
+            //KeepLevel = Level;
         }
         if (OnExperienceChange != null) OnExperienceChange(this, EventArgs.Empty);
+        KeepExp = Experience;
+        KeepLevel = Level;
 
-        
+        Debug.Log("Keep " + KeepExp);
+        Debug.Log("EXP " + Experience);
     }
 
     public int GetLevelNumber()
     {
-        return Level;
+        return Level + 20;
     }
 
     public float GetExperienceNormalized()
     {
         return (float)Experience / ExperienceNextLevel;
     }
+
     public string ReturnExpText()
     {
-        return Experience + "/" + ExperienceNextLevel;
+        return KeepExp + "/" + ExperienceNextLevel;
+
+        //return Experience + "/" + ExperienceNextLevel;
     }
 }
