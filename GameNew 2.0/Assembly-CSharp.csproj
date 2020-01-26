@@ -97,6 +97,8 @@
     <Compile Include="Assets\Scripts\Test\Test6.cs" />
     <Compile Include="Assets\Scripts\UI\BattleManager.cs" />
     <Compile Include="Assets\Scripts\UI\FightSelect.cs" />
+    <Compile Include="Assets\Scripts\UI\Redwing.cs" />
+    <Compile Include="Assets\Scripts\UI\Waiting.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

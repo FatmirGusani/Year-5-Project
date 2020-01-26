@@ -13,6 +13,7 @@ public class LevelSystem
     public event EventHandler OnExperienceChange;
     public event EventHandler OnLevelChange;
 
+    private MyHealthSystem MyHealthSystem;
 
     private int Level;
     private int Experience;
@@ -33,15 +34,20 @@ public class LevelSystem
 
     public void AddExperience(int amount)
     {
+
         Experience += amount;
         if (Experience >= ExperienceNextLevel)
         {
             Level++;
             Experience -= ExperienceNextLevel;
+
+           
+
             if (OnLevelChange != null) OnLevelChange(this, EventArgs.Empty);
             //KeepLevel = Level;
         }
         if (OnExperienceChange != null) OnExperienceChange(this, EventArgs.Empty);
+
         KeepExp = Experience;
         KeepLevel = Level;
 
@@ -49,9 +55,11 @@ public class LevelSystem
         Debug.Log("EXP " + Experience);
     }
 
+
+
     public int GetLevelNumber()
     {
-        return Level + 20;
+        return Level;
     }
 
     public float GetExperienceNormalized()
@@ -65,4 +73,14 @@ public class LevelSystem
 
         //return Experience + "/" + ExperienceNextLevel;
     }
+
+    public void AddlittleEXP()
+    {
+        if(MyHealthSystem  == true)
+        {
+            Debug.Log("testsing");
+            AddExperience(20);
+        }
+    }
+    
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 //This is a test//
 
@@ -11,11 +12,13 @@ public class MyHealthSystem : MonoBehaviour
     //Events notofiys when the health changes.
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
-    //private LevelSystem levelSystem;
-    //private DisplayLevel displayLevel;
 
-    private int healthAmount;
+    private LevelSystem levelSystem;
+    private DisplayLevel displayLevel;
+
+    public int healthAmount;
     private int healthAmountMax;
+    private bool isDeath;
 
     public MyHealthSystem(int healthAmount)
     {
@@ -26,23 +29,29 @@ public class MyHealthSystem : MonoBehaviour
     //This function damages the enemy's health 
     public void Damage(int amount)
     {
+        //levelSystem.AddExperience(30);
         //if the enemy's health is less then or equal to 0.
         healthAmount -= amount;
         if (healthAmount <= 0)
         {
-            //levelSystem.AddExperience(30);
-            //Load the game won scene.
-            healthAmount = 0;
-            //levelSystem.AddExperience(30);
-            Debug.Log("YOU LOSE");
-            //displayLevel.lost();
-            SceneManager.LoadScene("GameOver");
-            //levelSystem.AddExperience(30);
+            Debug.Log("Before");
+            //isDeath = true;
 
+            levelSystem.AddExperience(30);
+
+            Debug.Log("After");
+
+            healthAmount = 0;
+            Debug.Log("YOU LOSE");
+
+            SceneManager.LoadScene("GameOver");
         }
+
         if (OnDamaged != null)
         {
             OnDamaged(this, EventArgs.Empty);
+
+            //Debug.Log("Testing");
         }
     }
 
@@ -69,4 +78,6 @@ public class MyHealthSystem : MonoBehaviour
     {
         return healthAmount + "/" + healthAmountMax;
     }
+
+
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -11,12 +12,11 @@ public class DisplayLevel : MonoBehaviour
     private Text LevelText;
     private Image ExpBar;
 
-    private static int KeepExp;
-
     private MainMenu mainMenu;
     private LevelSystem levelSystem;
-    //private HealthBar healthBar;
+    private HealthBar healthBar;
     private MyHealthSystem MyhealthSystem;
+    //private MyHealthSystem myHealthSystem;
 
 
 
@@ -33,10 +33,34 @@ public class DisplayLevel : MonoBehaviour
         LevelText.text = "Level : " + (LevelNumber);
     }
 
+    /*
+    public void EXP()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if (sceneName == "GameOver")
+        {
+            // Do something...
+            Debug.Log("Tesing EXP SENCE");
+
+            //if (MyhealthSystem.healthAmount <= 0)
+            //{
+            levelSystem.AddExperience(Random.Range(10, 30));
+            MyExpTextChange();
+            //}
+        }
+    }
+    */
+
     public void AddExpButton()
     {
-        levelSystem.AddExperience(Random.Range(10, 30));
-        MyExpTextChange();
+        //if (MyhealthSystem.isDeath == true)
+        //{
+            levelSystem.AddExperience(Random.Range(10, 30));
+            MyExpTextChange();
+        //}
     }
 
     public void MyExpTextChange()
@@ -72,8 +96,6 @@ public class DisplayLevel : MonoBehaviour
         //Experience change, update Bar Size//
         SetExperienceBarSize(levelSystem.GetExperienceNormalized());
     }
-
-
 
     private void SetExperienceBarSize(float ExperienceNormalized)
     {
