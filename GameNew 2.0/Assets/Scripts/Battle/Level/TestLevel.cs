@@ -11,7 +11,6 @@ public class TestLevel : MonoBehaviour
     {
         LevelSystem levelSystem = new LevelSystem();
         displayLevel.SetLevelSystem(levelSystem);
-        //displayLevel.asAddExpButton();
 
     }
 

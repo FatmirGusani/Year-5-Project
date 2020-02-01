@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 //This is a test//
+
+using UnityEngine.UI;
 
 
 public class MyHealthSystem : MonoBehaviour
@@ -12,13 +13,16 @@ public class MyHealthSystem : MonoBehaviour
     //Events notofiys when the health changes.
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
-
-    private LevelSystem levelSystem;
+    public event EventHandler OnDeath;
+    //private LevelSystem levelSystem;
+    //private DisplayLevel displayLevel;
     private DisplayLevel displayLevel;
+    private LevelSystem levelSystem;
 
-    public int healthAmount;
+    private int healthAmount;
     private int healthAmountMax;
-    private bool isDeath;
+    private int Exp;
+
 
     public MyHealthSystem(int healthAmount)
     {
@@ -29,29 +33,26 @@ public class MyHealthSystem : MonoBehaviour
     //This function damages the enemy's health 
     public void Damage(int amount)
     {
-        //levelSystem.AddExperience(30);
         //if the enemy's health is less then or equal to 0.
         healthAmount -= amount;
         if (healthAmount <= 0)
         {
-            Debug.Log("Before");
-            //isDeath = true;
-
-            levelSystem.AddExperience(30);
-
-            Debug.Log("After");
-
+            //Load the game won scene.
             healthAmount = 0;
+            //Settertest(20);
+
+            Testhealth();
+
+            //levelSystem.AddExperience(30);
+
             Debug.Log("YOU LOSE");
 
+            //displayLevel.lost();
             SceneManager.LoadScene("GameOver");
         }
-
         if (OnDamaged != null)
         {
             OnDamaged(this, EventArgs.Empty);
-
-            //Debug.Log("Testing");
         }
     }
 
@@ -79,5 +80,25 @@ public class MyHealthSystem : MonoBehaviour
         return healthAmount + "/" + healthAmountMax;
     }
 
+    
+    public int Settertest(int Exp)
+    {
+        Debug.Log("THIS IS SETTERTEST");
 
+        Debug.Log("SetterTEst Value" + Exp);
+        //return Exp;
+
+        //levelSystem.GetExperienceNormalized();
+
+        return Exp;
+    }
+
+    public void Testhealth()
+    {
+        if (healthAmount == 0)
+        {
+            displayLevel.AddExpButton();
+        }
+    }
+    
 }

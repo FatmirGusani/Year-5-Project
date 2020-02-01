@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CodeMonkey;
+using CodeMonkey.Utils;
 using System.Threading.Tasks;
 
 //This code will display the damage done to the Heros using the green bar in the battle screen.
@@ -24,7 +26,6 @@ public class HealthBar : MonoBehaviour
     //Links the two hero classes.
     private EmeHealthSystem emehealthSystem;
     private MyHealthSystem MyhealthSystem;
-    private Waiting waiting;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class HealthBar : MonoBehaviour
         //Update the health on damage.
         emehealthSystem.OnDamaged += EneHealthSystem_OnDamaged;
         MyhealthSystem.OnDamaged += MyHealthSystem_OnDamaged;
+      
 
         //Update the health on heal.
         emehealthSystem.OnHealed += EneHealthSystem_OnHealed;
@@ -73,7 +75,6 @@ public class HealthBar : MonoBehaviour
     public void FlameThrower()
     {
         emehealthSystem.Damage(15);
-        //waiting.WaitOneSecond();
         Enemychoice();
         MyTextChange();
     }
@@ -122,7 +123,7 @@ public class HealthBar : MonoBehaviour
         {
             //otherwise it would attack.
             Debug.Log("Damage");
-            MyhealthSystem.Damage(Random.Range(5, 20));
+            MyhealthSystem.Damage(Random.Range(50, 70));
             EmeTextChange();
         }
     }
@@ -133,12 +134,15 @@ public class HealthBar : MonoBehaviour
     {
         SetHealth(emehealthSystem.GetHealthNormalized());
     }
+    /// 
+    ///
+    ///
+    ///
 
     //Trigger by an event on the our health systyem.
     private void MyHealthSystem_OnDamaged(object sender, System.EventArgs e)
     {
         MySetHealth(MyhealthSystem.MyGetHealthNormalized());
-
     }
 
     //Trigger by an event on the enemy health systyem.

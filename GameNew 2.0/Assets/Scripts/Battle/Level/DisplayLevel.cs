@@ -1,22 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
 public class DisplayLevel : MonoBehaviour
 {
-    // public Text MyHPText;
+   // public Text MyHPText;
     public Text ExpText;
     private Text LevelText;
     private Image ExpBar;
+    private LevelSystem levelSystem;
+    private int KeepExp = 30;
 
     private MainMenu mainMenu;
-    private LevelSystem levelSystem;
-    private HealthBar healthBar;
+    //private HealthBar healthBar;
     private MyHealthSystem MyhealthSystem;
-    //private MyHealthSystem myHealthSystem;
 
 
 
@@ -25,47 +24,40 @@ public class DisplayLevel : MonoBehaviour
         ExpText = transform.Find("ExpText").GetComponent<Text>();
         LevelText = transform.Find("Level").GetComponent<Text>();
         ExpBar = transform.Find("ExpBar").GetComponent<Image>();
+        //levelSystem = GameObject.FindObjectOfType<LevelSystem>();
     }
 
 
-    private void SetLevelNumber(int LevelNumber)
+    private void SetLevelNumber (int LevelNumber)
     {
         LevelText.text = "Level : " + (LevelNumber);
     }
 
-    /*
-    public void EXP()
+    public void AddExpButton()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
+        int Experience = 20;
 
-        string sceneName = currentScene.name;
+        Debug.Log("TESTING FUNCTION : " + KeepExp);
+        //Experience = MyhealthSystem.GetEstimatedDistance(KeepExp);
+        //Debug.Log("TESTING FUNCTION : " + KeepExp);
+        /////////////////////////////////////////////////////////
+        levelSystem.AddExperience(Experience);
+        MyExpTextChange();
+    }
 
-        if (sceneName == "GameOver")
-        {
-            // Do something...
-            Debug.Log("Tesing EXP SENCE");
-
-            //if (MyhealthSystem.healthAmount <= 0)
-            //{
-            levelSystem.AddExperience(Random.Range(10, 30));
-            MyExpTextChange();
-            //}
-        }
+    /*
+    public void test()
+    {
+        int gottonexp = 50;
+        Debug.Log("dskhgwkgksGH;SDHG");
+        int result = MyhealthSystem.GetEstimatedDistance(gottonexp);
+        levelSystem.AddExperience(gottonexp);
     }
     */
 
-    public void AddExpButton()
-    {
-        //if (MyhealthSystem.isDeath == true)
-        //{
-            levelSystem.AddExperience(Random.Range(10, 30));
-            MyExpTextChange();
-        //}
-    }
-
     public void MyExpTextChange()
     {
-        ExpText.text = levelSystem.ReturnExpText();
+        ExpText.text = levelSystem.ReturnExpText(); 
     }
 
     public void SetLevelSystem(LevelSystem levelSystem)

@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private LevelSystem levelSystem;
+
     private DisplayLevel displayLevel;
+    private LevelSystem levelSystem;
+
 
     public void PlayGame ()
     {
@@ -33,8 +35,17 @@ public class MainMenu : MonoBehaviour
     }
     public void charPlayAgain()
     {
+        //levelSystem.AddExperience(UnityEngine.Random.Range(10, 30));
+        //displayLevel.AddExpButton();
+        //levelSystem.AddExperience(20);
         SceneManager.LoadScene("CharizardScene");
     }
+
+    //public void AddEXPS()
+    //{
+    //   levelSystem.AddExperience(Random.Range(10, 30));
+    //    displaylevel.MyExpTextChange();
+    //}
 
     ////////////////////////Blast///////////////////////////////////////
     public void blastPlayAgain()
@@ -57,5 +68,6 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quiting");
         Application.Quit();
     }
+
 }
 
