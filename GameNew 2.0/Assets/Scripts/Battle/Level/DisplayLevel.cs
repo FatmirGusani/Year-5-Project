@@ -33,15 +33,21 @@ public class DisplayLevel : MonoBehaviour
         LevelText.text = "Level : " + (LevelNumber);
     }
 
+    public void TestAdd()
+    {
+        levelSystem.AddExperience(40);
+        MyExpTextChange();
+    }
+
     public void AddExpButton()
     {
-        int Experience = 20;
+        //int Experience = 20;
 
         Debug.Log("TESTING FUNCTION : " + KeepExp);
         //Experience = MyhealthSystem.GetEstimatedDistance(KeepExp);
         //Debug.Log("TESTING FUNCTION : " + KeepExp);
         /////////////////////////////////////////////////////////
-        levelSystem.AddExperience(Experience);
+        levelSystem.AddExperience(20);
         MyExpTextChange();
     }
 

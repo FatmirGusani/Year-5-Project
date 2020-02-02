@@ -42,22 +42,22 @@ public class LevelSystem : MonoBehaviour
 
         ExperienceNextLevel = 100;
         KeepExp = 0;
-        KeepLevel = 20;
+        KeepLevel = 3;
     }
 
-    public void Function()
+    public void test()
     {
-        Debug.Log("TESTING FUNCTION : " + KeepExp);
-        //Experience = myHealthSystem.GetEstimatedDistance(KeepExp);
-        //Debug.Log("TESTING FUNCTION : " + KeepExp);
+
+        myHealthSystem.add(Experience);
+
     }
 
     public void AddExperience(int amount)
     {
-        //myHealthSystem.GetEstimatedDistance(Experience);
+
         Debug.Log("got the  vlaue" + amount);
 
-        //Experience += result;
+        Experience += amount;
 
         if (Experience >= ExperienceNextLevel)
         {
@@ -65,12 +65,8 @@ public class LevelSystem : MonoBehaviour
             Experience -= ExperienceNextLevel;
             if (OnLevelChange != null) OnLevelChange(this, EventArgs.Empty);
             //KeepLevel = Level;
-
-            Debug.Log("EXP HAS RUN");
         }
         if (OnExperienceChange != null) OnExperienceChange(this, EventArgs.Empty);
-
-        //getreturn(RV);
 
         KeepExp = Experience;
         KeepLevel = Level;
@@ -81,7 +77,7 @@ public class LevelSystem : MonoBehaviour
 
     public int GetLevelNumber()
     {
-        return Level;
+        return KeepLevel;
     }
 
     public float GetExperienceNormalized()

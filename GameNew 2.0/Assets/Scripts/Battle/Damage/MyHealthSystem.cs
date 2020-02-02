@@ -17,12 +17,22 @@ public class MyHealthSystem : MonoBehaviour
     //private LevelSystem levelSystem;
     //private DisplayLevel displayLevel;
     private DisplayLevel displayLevel;
-    private LevelSystem levelSystem;
+    public LevelSystem levelSystem;
 
     private int healthAmount;
     private int healthAmountMax;
     private int Exp;
 
+
+    private void Awake()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (healthAmount == 0)
+        {
+            Debug.Log("AWAKE");
+            levelSystem.AddExperience(50);
+        }
+    }
 
     public MyHealthSystem(int healthAmount)
     {
@@ -30,22 +40,20 @@ public class MyHealthSystem : MonoBehaviour
         this.healthAmount = healthAmount;
     }
 
+
     //This function damages the enemy's health 
     public void Damage(int amount)
     {
+
+
         //if the enemy's health is less then or equal to 0.
         healthAmount -= amount;
         if (healthAmount <= 0)
         {
-            //Load the game won scene.
             healthAmount = 0;
-            //Settertest(20);
-
-            Testhealth();
+            Debug.Log("YOU LOSE");
 
             //levelSystem.AddExperience(30);
-
-            Debug.Log("YOU LOSE");
 
             //displayLevel.lost();
             SceneManager.LoadScene("GameOver");
@@ -53,6 +61,14 @@ public class MyHealthSystem : MonoBehaviour
         if (OnDamaged != null)
         {
             OnDamaged(this, EventArgs.Empty);
+        }
+
+        if (healthAmount == 0)
+        {
+            add(Exp);
+            //levelSystem.AddExperience(50);
+            //Testhealth();
+            //displayLevel.TestAdd();
         }
     }
 
@@ -80,25 +96,10 @@ public class MyHealthSystem : MonoBehaviour
         return healthAmount + "/" + healthAmountMax;
     }
 
-    
-    public int Settertest(int Exp)
+    public int add(int Ea)
     {
-        Debug.Log("THIS IS SETTERTEST");
-
-        Debug.Log("SetterTEst Value" + Exp);
-        //return Exp;
-
-        //levelSystem.GetExperienceNormalized();
-
-        return Exp;
+        Debug.Log("GOT HERE");
+        //levelSystem.AddExperience(79)
+        return Ea;
     }
-
-    public void Testhealth()
-    {
-        if (healthAmount == 0)
-        {
-            displayLevel.AddExpButton();
-        }
-    }
-    
 }

@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
+
 public class TestLevel : MonoBehaviour
 {
-
-    [SerializeField] private DisplayLevel displayLevel;
+    
+    public DisplayLevel displayLevel;
+    //[SerializeField] private HealthBar healthBar;
 
     private void Awake()
     {
         LevelSystem levelSystem = new LevelSystem();
-        displayLevel.SetLevelSystem(levelSystem);
+        //MyHealthSystem myHealthSystem = new MyHealthSystem();
 
+        //levelSystem.AddExperience(50);
+        //displayLevel.AddExpButton();
+        displayLevel.SetLevelSystem(levelSystem);
+        
     }
+
 
 }
