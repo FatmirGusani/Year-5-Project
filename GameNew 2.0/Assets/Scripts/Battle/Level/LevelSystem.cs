@@ -7,6 +7,27 @@ using UnityEngine.SceneManagement;
 
 public class LevelSystem : MonoBehaviour
 {
+
+    /*
+    private static LevelSystem instance = null;
+    public static LevelSystem SharedInstance { 
+    
+        get
+        {
+            if (instance == null) {
+                instance = new LevelSystem();
+            }
+            return instance;
+        }
+        public int damnExp;
+
+    */
+
+
+
+
+
+
     private MainMenu mainMenu;
     private MyHealthSystem myHealthSystem;
     private DisplayLevel displayLevel;
@@ -15,24 +36,15 @@ public class LevelSystem : MonoBehaviour
     public event EventHandler OnExperienceChange;
     public event EventHandler OnLevelChange;
 
-    /*
-    private void MyHealthSystem_OnDeath(object sender, System.EventArgs e)
-    {
-        Debug.Log("GOT HERE");
-        //myHealthSystem.MyGetHealthNormalized();
-        if(myHealthSystem.MyGetHealthNormalized() == 0)
-        {
-            AddExperience(20);
-        }
-    }
-    */
-
     private int Level;
     private int Experience;
     private int ExperienceNextLevel;
 
     private static int KeepExp;
     private static int KeepLevel;
+
+
+
 
     public LevelSystem()
     {
@@ -45,15 +57,61 @@ public class LevelSystem : MonoBehaviour
         KeepLevel = 3;
     }
 
-    public void test()
+    void Start()
     {
 
-        myHealthSystem.add(Experience);
+        //myHealthSystem = gameObject.AddComponent<MyHealthSystem>();
 
+        Experience = myHealthSystem.Exp;
+
+        //Debug.Log("Alpha is set to : " + Experience);
     }
+
+
+    /*
+    public void passValue()
+    {
+        //Debug.Log("GETTING VALUE");
+
+        KeepExp = myHealthSystem.add(Experience);
+
+        Debug.Log("GETTING VALUE" + KeepExp);
+    }
+    */
+
+
 
     public void AddExperience(int amount)
     {
+        //int testamount = myHealthSystem.add(amount);
+
+        //passValue();
+
+        Debug.Log("got the  vlaue" + amount);
+
+        Experience += amount;
+
+        if (Experience >= ExperienceNextLevel)
+        {
+            Level++;
+            Experience -= ExperienceNextLevel;
+            if (OnLevelChange != null) OnLevelChange(this, EventArgs.Empty);
+            //KeepLevel = Level;
+        }
+        if (OnExperienceChange != null) OnExperienceChange(this, EventArgs.Empty);
+
+        KeepExp = Experience;
+        KeepLevel = Level;
+
+        Debug.Log("Keep " + KeepExp);
+        Debug.Log("EXP " + Experience);
+    }
+
+    public void TestExperience(int amount)
+    {
+        //int testamount = myHealthSystem.add(amount);
+
+        //passValue();
 
         Debug.Log("got the  vlaue" + amount);
 
@@ -88,46 +146,15 @@ public class LevelSystem : MonoBehaviour
     public string ReturnExpText()
     {
         return KeepExp + "/" + ExperienceNextLevel;
-
-        //return Experience + "/" + ExperienceNextLevel;
     }
 
-    /*
-    private void MyloseEXPSend(object sender, System.EventArgs e)
+    private void Update()
     {
-        MySetHealth(myHealthSystem.MyLoseEXP());
+        Debug.Log("Alpha is set to : " + Experience);
     }
-    */
+
 
     /*
-public void passValue()
-{
-    Debug.Log("GETTING VALUE");
-    //Experience = myHealthSystem.returningvalue(test);
-
-    //AddExperience(test);
-    //Debug.Log(test);
-
-    //Experience;
-    int zero = 0;
-
-    int zeroresult = myHealthSystem(zero);
-
-    //de
-    //sreturningvalue
-
-    //int result = myHealthSystem.SquareANumber(5);
-    //result = myHealthSystem.SquareANumber(Experience);
-
-    //myHealthSystem.SquareANumber(Experience);
-    Experience = myHealthSystem.GetEstimatedDistance();
-
-
-
-    Debug.Log("GETTING VALUE122222222222");
-}
-
-
 
     public void GettingReturnvalue()
     {

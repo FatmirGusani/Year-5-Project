@@ -21,10 +21,10 @@ public class MyHealthSystem : MonoBehaviour
 
     private int healthAmount;
     private int healthAmountMax;
-    private int Exp;
+    public int Exp = 30;
 
 
-    private void Awake()
+    void Awake()
     {
         LevelSystem levelSystem = new LevelSystem();
         if (healthAmount == 0)
@@ -32,6 +32,12 @@ public class MyHealthSystem : MonoBehaviour
             Debug.Log("AWAKE");
             levelSystem.AddExperience(50);
         }
+    }
+
+    private void Start()
+    {
+        Debug.Log("testing start value" + Exp);
+        levelSystem.AddExperience(Exp);
     }
 
     public MyHealthSystem(int healthAmount)
@@ -65,7 +71,7 @@ public class MyHealthSystem : MonoBehaviour
 
         if (healthAmount == 0)
         {
-            add(Exp);
+            //add(Exp);
             //levelSystem.AddExperience(50);
             //Testhealth();
             //displayLevel.TestAdd();
@@ -96,10 +102,13 @@ public class MyHealthSystem : MonoBehaviour
         return healthAmount + "/" + healthAmountMax;
     }
 
-    public int add(int Ea)
+    /*
+    public int add(int Exp)
     {
-        Debug.Log("GOT HERE");
+        levelSystem.TestExperience(20);
+        Debug.Log("Value Returned : " + Exp);
         //levelSystem.AddExperience(79)
-        return Ea;
+        return Exp;
     }
+    */
 }

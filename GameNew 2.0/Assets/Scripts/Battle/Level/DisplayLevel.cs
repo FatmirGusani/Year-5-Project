@@ -11,7 +11,7 @@ public class DisplayLevel : MonoBehaviour
     private Text LevelText;
     private Image ExpBar;
     private LevelSystem levelSystem;
-    private int KeepExp = 30;
+    //private int KeepExp = 30;
 
     private MainMenu mainMenu;
     //private HealthBar healthBar;
@@ -43,7 +43,7 @@ public class DisplayLevel : MonoBehaviour
     {
         //int Experience = 20;
 
-        Debug.Log("TESTING FUNCTION : " + KeepExp);
+        //Debug.Log("TESTING FUNCTION : " + KeepExp);
         //Experience = MyhealthSystem.GetEstimatedDistance(KeepExp);
         //Debug.Log("TESTING FUNCTION : " + KeepExp);
         /////////////////////////////////////////////////////////
