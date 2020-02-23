@@ -67,8 +67,17 @@ public class MainMenu : MonoBehaviour
 
     public void Main_Menu()
     {
+        int templevel = 1;
+        int tempexp = 0;
         SceneManager.LoadScene("SampleScene");
+
+        Debug.Log("Testing Main_Menu");
     }
+
+
+
+
+
 
     public void QuitGame ()
     {

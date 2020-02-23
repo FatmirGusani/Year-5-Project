@@ -17,6 +17,7 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Links the two hero classes.
     private Lagoon_EneHealth lagoonEnemyHealth;
     private Lagoon_Health lagoonHealth;
+    private Lagoon lagoon;
 
     private void Awake()
     {
@@ -27,6 +28,9 @@ public class Lagoon_HealthBar : MonoBehaviour
     private void Start()
     {
         //start a new health system with 100 Health for both heros.
+
+        Lagoon lagoon = new Lagoon();
+
         lagoonEnemyHealth = new Lagoon_EneHealth(100);
         lagoonHealth = new Lagoon_Health(120);
 
@@ -73,7 +77,7 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Attack move 3. When button is pressed, call this function.
     public void Attack_3()
     {
-        lagoonEnemyHealth.Damage(15);
+        lagoonEnemyHealth.Damage(80);
         Enemychoice();
         MyTextChange();
     }

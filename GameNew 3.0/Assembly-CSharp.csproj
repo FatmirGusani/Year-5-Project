@@ -101,6 +101,9 @@
     <Compile Include="Assets\Scripts\Battle\Spawn\EnemyDetail.cs" />
     <Compile Include="Assets\Scripts\Battle\Spawn\Spanwer.cs" />
     <Compile Include="Assets\Scripts\Battle\Test123.cs" />
+    <Compile Include="Assets\Scripts\Heros\Fanir\Fanir.cs" />
+    <Compile Include="Assets\Scripts\Heros\Lagoon\Lagoon.cs" />
+    <Compile Include="Assets\Scripts\Heros\Panboo\Panboo.cs" />
     <Compile Include="Assets\Scripts\Intro\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Test\Test6.cs" />
     <Compile Include="Assets\Scripts\UI\BattleManager.cs" />

@@ -15,7 +15,7 @@ public class LevelSystem : MonoBehaviour
     public event EventHandler OnExperienceChange;
     public event EventHandler OnLevelChange;
 
-    private int Level = KeepLevel;
+    public int Level = KeepLevel;
     public int Experience = KeepExp;
     private int ExperienceNextLevel = 100;
 
@@ -58,6 +58,18 @@ public class LevelSystem : MonoBehaviour
     {
         return KeepExp + "/" + ExperienceNextLevel;
     }
+
+    /*
+    public void test()
+    {
+        if (mainMenu.Main_Menu())
+        {
+            Experience = 0;
+            Level = 1;
+        }
+
+    }
+    */
 }
 
 

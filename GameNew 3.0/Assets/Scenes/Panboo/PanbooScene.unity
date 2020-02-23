@@ -2649,9 +2649,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: adb7ca03ee3564f48903638e34737b1d, type: 3}
   - {fileID: 21300000, guid: 629e99effd606ba49ba44ae0183faadf, type: 3}
   - {fileID: 21300000, guid: 089cb0de784eef44980e1439481598e6, type: 3}
-  - {fileID: 21300000, guid: 55a495fcb768bd84aa4d814f61fa14c2, type: 3}
-  EnemyName: {fileID: 0}
-  EnemyLevel: {fileID: 0}
+  - {fileID: 21300000, guid: e5a2efa37d2a2914c9dcaf2b2d671a17, type: 3}
+  EnemyName: {fileID: 996948808}
+  EnemyLevel: {fileID: 1927917081}
 --- !u!212 &1408573765
 SpriteRenderer:
   m_ObjectHideFlags: 0
