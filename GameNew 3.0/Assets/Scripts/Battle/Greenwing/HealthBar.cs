@@ -26,6 +26,10 @@ public class HealthBar : MonoBehaviour
     //Links the two hero classes.
     private EmeHealthSystem emehealthSystem;
     private MyHealthSystem MyhealthSystem;
+    private LevelSystem levelSystem;
+
+    private int moreEnemyhealth = keephealthEnemy;
+    private static int keephealthEnemy = 0;
 
     private void Awake()
     {
@@ -35,8 +39,10 @@ public class HealthBar : MonoBehaviour
     }
     private void Start()
     {
+        EnemyMoreHealth();
+
         //start a new health system with 100 Health for both heros.
-        emehealthSystem = new EmeHealthSystem(100);
+        emehealthSystem = new EmeHealthSystem(100 + keephealthEnemy);
         MyhealthSystem = new MyHealthSystem(100);
 
         //Get the healthNormalized
@@ -51,6 +57,20 @@ public class HealthBar : MonoBehaviour
         //Update the health on heal.
         emehealthSystem.OnHealed += EneHealthSystem_OnHealed;
         MyhealthSystem.OnHealed += MyHealthSystem_OnHealed;
+    }
+    public void EnemyMoreHealth()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 2 == 0)
+        {
+            moreEnemyhealth += Random.Range(5, 15);
+            keephealthEnemy = moreEnemyhealth;
+        }
+        else
+        {
+            Random.Range(5, 15);
+            moreEnemyhealth = keephealthEnemy;
+        }
     }
 
     //The hero Heal function. Once the button is pressed, this function will run.

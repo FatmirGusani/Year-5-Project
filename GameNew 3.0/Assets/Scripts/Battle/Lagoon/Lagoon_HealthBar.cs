@@ -18,21 +18,32 @@ public class Lagoon_HealthBar : MonoBehaviour
     private Lagoon_EneHealth lagoonEnemyHealth;
     private Lagoon_Health lagoonHealth;
     private Lagoon lagoon;
+    private LevelSystem levelSystem;
 
-    private void Awake()
+
+    private int morehealth = keephealth;
+    private static int keephealth = 0;
+    private int moreEnemyhealth = keephealthEnemy;
+    private static int keephealthEnemy = 0;
+
+    public void Awake()
     {
         //Gets the reference to both healthbar images.
         BarImage = transform.Find("HPBar").GetComponent<Image>();
         BarImagemy = transform.Find("MyHPBar").GetComponent<Image>();
+
+        //SHP= lagoon.sendhealth;
     }
     private void Start()
     {
         //start a new health system with 100 Health for both heros.
-
+        MoreHealth();
+        EnemyMoreHealth();
+        //MyTextChange();
         Lagoon lagoon = new Lagoon();
 
-        lagoonEnemyHealth = new Lagoon_EneHealth(100);
-        lagoonHealth = new Lagoon_Health(120);
+        lagoonEnemyHealth = new Lagoon_EneHealth(100 + keephealthEnemy);
+        lagoonHealth = new Lagoon_Health(120 + keephealth);
 
         //Get the healthNormalized
         SetHealth(lagoonEnemyHealth.GetHealthNormalized());
@@ -48,11 +59,39 @@ public class Lagoon_HealthBar : MonoBehaviour
         lagoonHealth.OnHealed += MyHealthSystem_OnHealed;
     }
 
+
+    public void MoreHealth()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 2 == 0)
+        {
+            morehealth += 10;
+            keephealth = morehealth;
+        }
+        else
+        {
+            morehealth = keephealth;
+        }
+    }
+
+    public void EnemyMoreHealth()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 2 == 0)
+        {
+            moreEnemyhealth += Random.Range(5, 15);
+            keephealthEnemy = moreEnemyhealth;
+        }
+        else
+        {
+            Random.Range(5, 15);
+            moreEnemyhealth = keephealthEnemy;
+        }
+    }
+
     //The hero Heal function. Once the button is pressed, this function will run.
     public void HealHero()
     {
-        Debug.Log("Hero Healed");
-
         lagoonHealth.Heal(Random.Range(10, 30));
         Enemychoice();
         MyTextChange();
@@ -110,14 +149,12 @@ public class Lagoon_HealthBar : MonoBehaviour
         //If the generate number is 2, the enemy hero would heal.
         if (randomnumnber == 2)
         {
-            Debug.Log("Heal");
             lagoonEnemyHealth.Heal((30));
             EmeTextChange();
         }
         else
         {
             //otherwise it would attack.
-            Debug.Log("Damage");
             lagoonHealth.Damage(Random.Range(5, 25));
             EmeTextChange();
         }

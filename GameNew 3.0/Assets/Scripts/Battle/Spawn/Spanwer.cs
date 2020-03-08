@@ -45,12 +45,16 @@ public class Spanwer : MonoBehaviour
         //Displays the name that is accesed with the sprite
         EnemyName.text = " Name : " + Name[rand];
 
-        if(levelSystem.Level == 3)
+        if(levelSystem.Level >= 10)
         {
             
             GetComponent<SpriteRenderer>().sprite = Spawner_Pic[10];
             EnemyName.text = " Name : " + Name[11];
-            EnemyLevel.text = "Level : " + levelSystem.GetLevelNumber() + 1;
+
+            EnemyLevel.text = "Level : " + (levelSystem.Level+1);
+
+
+            //EnemyLevel.text = "Level : "+1+ levelSystem.GetLevelNumber();
             Debug.Log("TEST FOR FINAL BOSS");
         }
     }

@@ -16,6 +16,10 @@ public class Panboo_HealthBar : MonoBehaviour
     //Links the two hero classes.
     private Panboo_EneHealth PanbooEnemyHealth;
     private Panboo_Health PanbooHealth;
+    private LevelSystem levelSystem;
+
+    private int moreEnemyhealth = keephealthEnemy;
+    private static int keephealthEnemy = 0;
 
     private void Awake()
     {
@@ -26,7 +30,7 @@ public class Panboo_HealthBar : MonoBehaviour
     private void Start()
     {
         //start a new health system with 100 Health for both heros.
-        PanbooEnemyHealth = new Panboo_EneHealth(100);
+        PanbooEnemyHealth = new Panboo_EneHealth(100 + keephealthEnemy);
         PanbooHealth = new Panboo_Health(120);
 
         //Get the healthNormalized
@@ -41,6 +45,20 @@ public class Panboo_HealthBar : MonoBehaviour
         //Update the health on heal.
         PanbooEnemyHealth.OnHealed += EneHealthSystem_OnHealed;
         PanbooHealth.OnHealed += MyHealthSystem_OnHealed;
+    }
+    public void EnemyMoreHealth()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 2 == 0)
+        {
+            moreEnemyhealth += Random.Range(5, 15);
+            keephealthEnemy = moreEnemyhealth;
+        }
+        else
+        {
+            Random.Range(5, 15);
+            moreEnemyhealth = keephealthEnemy;
+        }
     }
 
     //The hero Heal function. Once the button is pressed, this function will run.

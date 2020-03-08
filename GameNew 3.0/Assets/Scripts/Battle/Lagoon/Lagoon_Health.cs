@@ -19,7 +19,6 @@ public class Lagoon_Health : MonoBehaviour
 
     LevelSystem level = GameObject.Find("UIHanding Object").GetComponent<LevelSystem>();
 
-
     public Lagoon_Health(int healthAmount)
     {
         healthAmountMax = healthAmount;
@@ -37,8 +36,6 @@ public class Lagoon_Health : MonoBehaviour
             //Load the game won scene.
             healthAmount = 0;
 
-            Debug.Log("YOU LOSE");
-
             SceneManager.LoadScene("LagoonGameOver");
         }
         if (OnDamaged != null)
@@ -52,7 +49,6 @@ public class Lagoon_Health : MonoBehaviour
             DisplayLevel displayLevel = new DisplayLevel();
             levelSystem.AddExperience(30);
             levelSystem.ReturnExpText();
-            //levelSystem.AddExperience()
         }
     }
 

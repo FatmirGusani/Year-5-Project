@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Fanir/FanirScene.unity
+- path: Assets/Scenes/Panboo/PanbooScene.unity
   isLoaded: 1
   isActive: 1
