@@ -24,7 +24,7 @@ public class DisplayLevel : MonoBehaviour
     }
 
     private void SetLevelNumber (int LevelNumber)
-    {
+    { 
         LevelText.text = "Level : " + LevelNumber;
     }
 
@@ -43,7 +43,6 @@ public class DisplayLevel : MonoBehaviour
     {
         //Set the LevelSystem object//
         this.levelSystem = levelSystem;
-
         //Update the starting value
         SetLevelNumber(levelSystem.GetLevelNumber());
         SetExperienceBarSize(levelSystem.GetExperienceNormalized());

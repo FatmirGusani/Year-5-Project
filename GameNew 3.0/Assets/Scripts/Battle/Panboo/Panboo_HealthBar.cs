@@ -21,6 +21,9 @@ public class Panboo_HealthBar : MonoBehaviour
     private int moreEnemyhealth = keephealthEnemy;
     private static int keephealthEnemy = 0;
 
+    private int DefenceIncseLevel = KeepDefenceState;
+    private static int KeepDefenceState = 0;
+
     private void Awake()
     {
         //Gets the reference to both healthbar images.
@@ -29,9 +32,11 @@ public class Panboo_HealthBar : MonoBehaviour
     }
     private void Start()
     {
+        EnemyMoreHealth();
+        AttackLevelState();
         //start a new health system with 100 Health for both heros.
         PanbooEnemyHealth = new Panboo_EneHealth(100 + keephealthEnemy);
-        PanbooHealth = new Panboo_Health(120);
+        PanbooHealth = new Panboo_Health(100);
 
         //Get the healthNormalized
         SetHealth(PanbooEnemyHealth.GetHealthNormalized());
@@ -46,6 +51,7 @@ public class Panboo_HealthBar : MonoBehaviour
         PanbooEnemyHealth.OnHealed += EneHealthSystem_OnHealed;
         PanbooHealth.OnHealed += MyHealthSystem_OnHealed;
     }
+
     public void EnemyMoreHealth()
     {
         LevelSystem levelSystem = new LevelSystem();
@@ -58,6 +64,21 @@ public class Panboo_HealthBar : MonoBehaviour
         {
             Random.Range(5, 15);
             moreEnemyhealth = keephealthEnemy;
+        }
+    }
+
+    public void AttackLevelState()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 2 == 0)
+        {
+            DefenceIncseLevel += Random.Range(1, 3);
+            KeepDefenceState = DefenceIncseLevel;
+        }
+        else
+        {
+            Random.Range(5, 15);
+            DefenceIncseLevel = KeepDefenceState;
         }
     }
 
@@ -131,7 +152,7 @@ public class Panboo_HealthBar : MonoBehaviour
         {
             //otherwise it would attack.
             Debug.Log("Damage");
-            PanbooHealth.Damage(Random.Range(1, 20));
+            PanbooHealth.Damage(Random.Range(1, 20) - DefenceIncseLevel);
             EmeTextChange();
         }
     }

@@ -24,8 +24,6 @@ public class LevelSystem : MonoBehaviour
 
     public void AddExperience(int amount)
     {
-        Debug.Log("got the  vlaue" + amount);
-
         Experience += amount;
 
         if (Experience >= ExperienceNextLevel)
@@ -39,14 +37,11 @@ public class LevelSystem : MonoBehaviour
         if (OnExperienceChange != null) OnExperienceChange(this, EventArgs.Empty);
 
         KeepExp = Experience;
-
-        Debug.Log("Keep LEVEL " + KeepLevel);
-        Debug.Log("LEVEL " + Level);
     }
 
     public int GetLevelNumber()
     {
-        return Level ;
+        return Level;
     }
 
     public float GetExperienceNormalized()
@@ -58,18 +53,6 @@ public class LevelSystem : MonoBehaviour
     {
         return KeepExp + "/" + ExperienceNextLevel;
     }
-
-    /*
-    public void test()
-    {
-        if (mainMenu.Main_Menu())
-        {
-            Experience = 0;
-            Level = 1;
-        }
-
-    }
-    */
 }
 
 

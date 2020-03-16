@@ -31,6 +31,9 @@ public class HealthBar : MonoBehaviour
     private int moreEnemyhealth = keephealthEnemy;
     private static int keephealthEnemy = 0;
 
+    private int AttackIncseLevel = KeepAttackState;
+    private static int KeepAttackState = 0;
+
     private void Awake()
     {
         //Gets the reference to both healthbar images.
@@ -40,7 +43,7 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         EnemyMoreHealth();
-
+        AttackLevelState();
         //start a new health system with 100 Health for both heros.
         emehealthSystem = new EmeHealthSystem(100 + keephealthEnemy);
         MyhealthSystem = new MyHealthSystem(100);
@@ -58,6 +61,7 @@ public class HealthBar : MonoBehaviour
         emehealthSystem.OnHealed += EneHealthSystem_OnHealed;
         MyhealthSystem.OnHealed += MyHealthSystem_OnHealed;
     }
+
     public void EnemyMoreHealth()
     {
         LevelSystem levelSystem = new LevelSystem();
@@ -73,11 +77,24 @@ public class HealthBar : MonoBehaviour
         }
     }
 
+    public void AttackLevelState()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 2 == 0)
+        {
+            AttackIncseLevel += Random.Range(3, 8);
+            KeepAttackState = AttackIncseLevel;
+        }
+        else
+        {
+            Random.Range(5, 15);
+            AttackIncseLevel = KeepAttackState;
+        }
+    }
+
     //The hero Heal function. Once the button is pressed, this function will run.
     public void HealHero()
     {
-        Debug.Log("Hero Healed");
-        
         MyhealthSystem.Heal(Random.Range(10, 30));
         Enemychoice();
         MyTextChange();
@@ -86,7 +103,8 @@ public class HealthBar : MonoBehaviour
     //Attack move 1. When button is pressed, call this function.
     public void Attack_1()
     {
-        emehealthSystem.Damage(7);
+        emehealthSystem.Damage(7 + KeepAttackState);
+        Debug.Log("Attack 1 power" + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
@@ -94,7 +112,8 @@ public class HealthBar : MonoBehaviour
     //Attack move 2. When button is pressed, call this function.
     public void Attack_2()
     {
-        emehealthSystem.Damage(15);
+        emehealthSystem.Damage(15 + KeepAttackState);
+        Debug.Log("Attack 2 power" + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
@@ -102,7 +121,8 @@ public class HealthBar : MonoBehaviour
     //Attack move 3. When button is pressed, call this function.
     public void Attack_3()
     {
-        emehealthSystem.Damage(20);
+        emehealthSystem.Damage(20 + KeepAttackState);
+        Debug.Log("Attack 3 power" + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
@@ -110,7 +130,8 @@ public class HealthBar : MonoBehaviour
     //Attack move 4. When button is pressed, call this function.
     public void Attack_4()
     {
-        emehealthSystem.Damage(15);
+        emehealthSystem.Damage(15 + KeepAttackState);
+        Debug.Log("Attack 4 power" + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
@@ -135,14 +156,12 @@ public class HealthBar : MonoBehaviour
         //If the generate number is 2, the enemy hero would heal.
         if (randomnumnber == 2)
         {
-            Debug.Log("Heal");
             emehealthSystem.Heal((30));
             EmeTextChange();
         }
         else
         {
             //otherwise it would attack.
-            Debug.Log("Damage");
             MyhealthSystem.Damage(Random.Range(5, 25));
             EmeTextChange();
         }

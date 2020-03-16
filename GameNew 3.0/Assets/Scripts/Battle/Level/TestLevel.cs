@@ -9,11 +9,10 @@ public class TestLevel : MonoBehaviour
     
     public DisplayLevel displayLevel;
 
-
     private void Awake()
     {
         LevelSystem levelSystem = new LevelSystem();
-        //myHealthSystem = new MyHealthSystem(37);
+       
         displayLevel.SetLevelSystem(levelSystem);
     }
 }

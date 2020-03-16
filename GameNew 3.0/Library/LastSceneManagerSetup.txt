@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Panboo/PanbooScene.unity
+- path: Assets/Scenes/Lagoon/LagoonGameWon.unity
   isLoaded: 1
   isActive: 1

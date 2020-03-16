@@ -41,7 +41,6 @@ public class Spanwer : MonoBehaviour
 
         //Displays the sprite that was selected by random
         GetComponent<SpriteRenderer>().sprite = Spawner_Pic[rand];
-        Debug.Log("Check random value" + rand);
         //Displays the name that is accesed with the sprite
         EnemyName.text = " Name : " + Name[rand];
 
