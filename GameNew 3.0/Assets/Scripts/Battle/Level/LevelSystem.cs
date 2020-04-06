@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class LevelSystem : MonoBehaviour
 {
@@ -21,6 +21,8 @@ public class LevelSystem : MonoBehaviour
 
     private static int KeepExp = 0;
     private static int KeepLevel = 1;
+
+    
 
     public void AddExperience(int amount)
     {
@@ -41,7 +43,7 @@ public class LevelSystem : MonoBehaviour
 
     public int GetLevelNumber()
     {
-        return Level;
+            return Level;
     }
 
     public float GetExperienceNormalized()
@@ -53,6 +55,17 @@ public class LevelSystem : MonoBehaviour
     {
         return KeepExp + "/" + ExperienceNextLevel;
     }
+
+    public void test()
+    {
+        if (mainMenu.checkfunction == true)
+        {
+           // Debug.Log("come here");
+            KeepLevel = 0;
+            KeepExp = 0;
+        }
+    }
 }
+
 
 

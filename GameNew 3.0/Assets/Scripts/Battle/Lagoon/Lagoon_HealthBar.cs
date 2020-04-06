@@ -12,7 +12,10 @@ public class Lagoon_HealthBar : MonoBehaviour
 
     public Text MyHPText;
     public Text EmeHPText;
-
+    public Text Attack5Text;
+    public Text Attack6Text;
+    public Button Attack5;
+    public Button Attack6;
 
     //Links the two hero classes.
     private Lagoon_EneHealth lagoonEnemyHealth;
@@ -21,19 +24,42 @@ public class Lagoon_HealthBar : MonoBehaviour
     private LevelSystem levelSystem;
 
 
-    private int morehealth = keephealth;
-    private static int keephealth = 0;
     private int moreEnemyhealth = keephealthEnemy;
     private static int keephealthEnemy = 0;
+    private int EnemyAttackIncseLevel = EnemyKeepAttackState;
+    private static int EnemyKeepAttackState = 0;
+    private int EnemyDefenceIncseLevel = EnemyKeepDefenceState;
+    private static int EnemyKeepDefenceState = 0;
+
+    private int morehealth = keephealth;
+    private static int keephealth = 0;
+    private int AttackIncseLevel = KeepAttackState;
+    private static int KeepAttackState = 0;
+    private int DefenceIncseLevel = KeepDefenceState;
+    private static int KeepDefenceState = 0;
 
     public void Awake()
     {
-        //Gets the reference to both healthbar images.
         BarImage = transform.Find("HPBar").GetComponent<Image>();
         BarImagemy = transform.Find("MyHPBar").GetComponent<Image>();
-
-        //SHP= lagoon.sendhealth;
     }
+
+    void Update()
+    {
+        MyTextChange();
+        EmeTextChange();
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level >= 2)
+            Attack5Text.text = "Water Gun v2";
+        else
+            Attack5Text.text = "Locked";
+
+        if (levelSystem.Level >= 5)
+            Attack6Text.text = "Water Gun v2";
+        else
+            Attack6Text.text = "Locked";
+    }
+
     private void Start()
     {
         //start a new health system with 100 Health for both heros.
@@ -65,26 +91,40 @@ public class Lagoon_HealthBar : MonoBehaviour
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level % 2 == 0)
         {
-            morehealth += 10;
+            morehealth += Random.Range(3, 8);
             keephealth = morehealth;
+            AttackIncseLevel += Random.Range(3, 8);
+            KeepAttackState = AttackIncseLevel;
+            DefenceIncseLevel += Random.Range(1, 3);
+            KeepDefenceState = DefenceIncseLevel;
         }
         else
         {
+            AttackIncseLevel = KeepAttackState;
             morehealth = keephealth;
+            DefenceIncseLevel = KeepDefenceState;
         }
     }
 
     public void EnemyMoreHealth()
     {
         LevelSystem levelSystem = new LevelSystem();
-        if (levelSystem.Level % 2 == 0)
+        if (levelSystem.Level >= 15)
+        {
+            moreEnemyhealth += morehealth / 2;
+            keephealthEnemy = moreEnemyhealth;
+            EnemyAttackIncseLevel += AttackIncseLevel / 2;
+            EnemyKeepAttackState = EnemyAttackIncseLevel;
+        }
+        else if (levelSystem.Level % 2 == 0)
         {
             moreEnemyhealth += Random.Range(5, 15);
             keephealthEnemy = moreEnemyhealth;
+            EnemyAttackIncseLevel += Random.Range(2, 5);
+            EnemyKeepAttackState = EnemyAttackIncseLevel;
         }
         else
         {
-            Random.Range(5, 15);
             moreEnemyhealth = keephealthEnemy;
         }
     }
@@ -100,7 +140,7 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Attack move 1. When button is pressed, call this function.
     public void Attack_1()
     {
-        lagoonEnemyHealth.Damage(5);
+        lagoonEnemyHealth.Damage(5 + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
@@ -108,7 +148,7 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Attack move 2. When button is pressed, call this function.
     public void Attack_2()
     {
-        lagoonEnemyHealth.Damage(10);
+        lagoonEnemyHealth.Damage(10 + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
@@ -116,7 +156,7 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Attack move 3. When button is pressed, call this function.
     public void Attack_3()
     {
-        lagoonEnemyHealth.Damage(80);
+        lagoonEnemyHealth.Damage(80 + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
@@ -124,10 +164,46 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Attack move 4. When button is pressed, call this function.
     public void Attack_4()
     {
-        lagoonEnemyHealth.Damage(10);
+        lagoonEnemyHealth.Damage(10 + KeepAttackState);
         Enemychoice();
         MyTextChange();
     }
+
+    
+    public void Attack_5()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level >= 2)
+        {
+            transform.Find("Attack5Button").GetComponent<Button>().interactable = true;
+            lagoonEnemyHealth.Damage(12);
+            Enemychoice();
+            MyTextChange();
+        }
+        else
+        {
+            transform.Find("Attack5Button").GetComponent<Button>().interactable = false;
+            
+        }
+    }
+
+    public void Attack_6()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level >= 9)
+        {
+            transform.Find("Attack6Button").GetComponent<Button>().interactable = true;
+            lagoonEnemyHealth.Damage(12);
+            Enemychoice();
+            MyTextChange();
+        }
+        else
+        {
+            transform.Find("Attack6Button").GetComponent<Button>().interactable = false;
+            
+        }
+    }
+    
 
     public void EmeTextChange()
     {
@@ -155,8 +231,17 @@ public class Lagoon_HealthBar : MonoBehaviour
         else
         {
             //otherwise it would attack.
-            lagoonHealth.Damage(Random.Range(5, 25));
+            lagoonHealth.Damage(Random.Range(5, 25) + EnemyKeepAttackState - KeepDefenceState);
             EmeTextChange();
+        }
+    }
+
+    public void CheckAttack5()
+    {
+        if (levelSystem.Level == 2)
+        {
+            Attack5.gameObject.SetActive(false);
+
         }
     }
 

@@ -7,31 +7,39 @@ using UnityEngine.UI;
 public class DisplayLevel : MonoBehaviour
 {
    // public Text MyHPText;
-    public Text ExpText;
+    private Text ExpText;
     private Text LevelText;
     private Image ExpBar;
+    private Button Attack5;
+    private Button Attack6;
 
     private MainMenu mainMenu;
     private HealthBar healthBar;
     private LevelSystem levelSystem;
     private MyHealthSystem MyhealthSystem;
 
+
     private void Awake()
     {
         ExpText = transform.Find("ExpText").GetComponent<Text>();
         LevelText = transform.Find("Level").GetComponent<Text>();
         ExpBar = transform.Find("ExpBar").GetComponent<Image>();
+        Attack5 = transform.Find("ExpBar").GetComponent<Button>();
+
+        LevelSystem levelSystem = new LevelSystem();
+
+        SetLevelSystem(levelSystem);
+    }
+
+    void Update()
+    {
+        MyExpTextChange();
+
     }
 
     private void SetLevelNumber (int LevelNumber)
     { 
         LevelText.text = "Level : " + LevelNumber;
-    }
-
-    public void AddExpButton()
-    {
-        levelSystem.AddExperience(80);
-        MyExpTextChange();
     }
 
     public void MyExpTextChange()

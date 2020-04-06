@@ -49,8 +49,7 @@ public class Panboo_Health : MonoBehaviour
         if (healthAmount == 0)
         {
             LevelSystem levelSystem = new LevelSystem();
-            DisplayLevel displayLevel = new DisplayLevel();
-            levelSystem.AddExperience(30);
+            levelSystem.AddExperience(25);
             levelSystem.ReturnExpText();
             //levelSystem.AddExperience()
         }

@@ -54,7 +54,7 @@ public class MyHealthSystem : MonoBehaviour
         {
             LevelSystem levelSystem = new LevelSystem();
             DisplayLevel displayLevel = new DisplayLevel();
-            levelSystem.AddExperience(30);
+            levelSystem.AddExperience(25);
             levelSystem.ReturnExpText();
             //levelSystem.AddExperience()
         }

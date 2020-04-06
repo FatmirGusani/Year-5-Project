@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -8,6 +9,23 @@ public class MainMenu : MonoBehaviour
 
     private DisplayLevel displayLevel;
     private LevelSystem levelSystem;
+    public Text newText;
+
+    public bool checkfunction = false;
+
+    void Update()
+    {
+
+    }
+
+    public void Check()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level == 2 || levelSystem.Level == 9)
+            newText.text = "New Attack unlocked";
+        else
+            newText.text = "";
+    }
 
 
     public void PlayGame ()
@@ -18,14 +36,17 @@ public class MainMenu : MonoBehaviour
     public void FanirStarter()
     {
         SceneManager.LoadScene("FanirScene");
+
     }
     public void LagoonStarer()
     {
         SceneManager.LoadScene("LagoonScene");
+
     }
     public void PanbooStarter()
     {
         SceneManager.LoadScene("PanbooScene");
+
     }
 
     ////////////////////////Fanir///////////////////////////////////////
@@ -61,23 +82,24 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("PanbooGameWon");
     }
 
-    /// <summary>
-    /// /////////////////////////////////////////////////
-    /// </summary>
 
     public void Main_Menu()
     {
-        int templevel = 1;
-        int tempexp = 0;
         SceneManager.LoadScene("SampleScene");
+        checkfunction = true;
 
-        Debug.Log("Testing Main_Menu");
+        /*
+        LevelSystem levelSystem = new LevelSystem();
+        Debug.Log("before new level" + levelSystem.Level);
+        Debug.Log("before new experience" + levelSystem.Experience);
+        levelSystem.Level = 1;
+        levelSystem.Experience = 0;
+        Debug.Log("TEst new level" + levelSystem.Level);
+        Debug.Log("TEst new experience" + levelSystem.Experience);
+        */
+
+
     }
-
-
-
-
-
 
     public void QuitGame ()
     {
