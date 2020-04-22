@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Scenes/Fanir/FanirScene.unity
-  isLoaded: 1
-  isActive: 1
