@@ -13,7 +13,7 @@ public class Fanir_Health : MonoBehaviour
    
     public int healthAmount;
     private int healthAmountMax;
-
+    public int amountValue;
     public Fanir_Health(int healthAmount)
     {
         healthAmountMax = healthAmount;
@@ -25,6 +25,7 @@ public class Fanir_Health : MonoBehaviour
     {
         //if the heros's health is less then or equal to 0.
         healthAmount -= amount;
+        amountValue = amount;
         if (healthAmount <= 0)
         {
             //Load the game won scene.
@@ -44,6 +45,7 @@ public class Fanir_Health : MonoBehaviour
     //This function heals the enemy's health 
     public void Heal(int amount)
     {
+        amountValue = amount;
         healthAmount += amount;
         if (healthAmount > healthAmountMax)
         {

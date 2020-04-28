@@ -2,70 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CodeMonkey;
-using CodeMonkey.Utils;
 using System.Threading.Tasks;
-
-//This code will display the damage done to the Heros using the green bar in the battle screen.
-//The attack moves functions are created here and our hero uses these fucntions to deal damage to the enemy hero.
-//Once our hero deals damage, the enemy hero will also deal damage to our hero using a random call. the damage is ranged from 5 to 20.
-//Our heal can also heal, the heal function use the random.range aswell. the range for our heal is from 10 - 30.
-//If our hero heals, the enemy will also attack. If the heal is higher value then the enemy damage, the healthbar will go up,
-//otherwise the damage done will be higher then the heal value and our healthbar will go down.
 
 public class Fanir_HealthBar : MonoBehaviour
 {
     //Reference to both heathbar images
     private Image BarImage;
     private Image BarImagemy;
+    private Image CircleDamage;
+
     public Text MyHPText;
     public Text EmeHPText;
+    public Text DamageText;
     public Text Attack5Text;
     public Text Attack6Text;
-    public Button Attack5;
-    public Button Attack6;
 
     //Links the two hero classes.
     private Fanir_EneHealth FanirEnemyHealth;
     private Fanir_Health FanirHealth;
-    private LevelSystem levelSystem;
-    private HeroLevelStats heroLevelStats;
-    private EnemyLevelStats enemyLevelStats;
 
-    private void Awake()
+    public void Awake()
     {
-        //Gets the reference to both healthbar images.
         BarImage = transform.Find("HPBar").GetComponent<Image>();
         BarImagemy = transform.Find("MyHPBar").GetComponent<Image>();
+        CircleDamage = transform.Find("CircleDamage").GetComponent<Image>();
     }
 
-    private void Update()
+    void Update()
     {
-        EmeTextChange();
         MyTextChange();
-
+        EmeTextChange();
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 2)
-            Attack5Text.text = "Dive Boom";
+            Attack5Text.text = "Tsunami";
         else
             Attack5Text.text = "Locked";
 
         if (levelSystem.Level >= 5)
-            Attack6Text.text = "Eruption";
+            Attack6Text.text = "Icicle";
         else
             Attack6Text.text = "Locked";
     }
+
     private void Start()
     {
+        CircleDamage.enabled = false;
+        DamageText.enabled = false;
+
         HeroLevelStats Fanir_States = new HeroLevelStats();
         EnemyLevelStats enemyLevelStats = new EnemyLevelStats();
 
-        Fanir_States.FanirStatesLevel();
-        enemyLevelStats.FanirEnemyStatesLevel();
+        Fanir_States.LagoonStatesLevel();
+        enemyLevelStats.LagoonEnemyStatesLevel();
 
-        //start a new health system with 100 Health for both heros.
         FanirEnemyHealth = new Fanir_EneHealth(100 + EnemyLevelStats.EnemyKeepHealthState);
-        FanirHealth = new Fanir_Health(100 + HeroLevelStats.KeepHealthState);
+        FanirHealth = new Fanir_Health(110 + HeroLevelStats.KeepHealthState);
 
         //Get the healthNormalized
         SetHealth(FanirEnemyHealth.GetHealthNormalized());
@@ -75,66 +66,102 @@ public class Fanir_HealthBar : MonoBehaviour
         FanirEnemyHealth.OnDamaged += EneHealthSystem_OnDamaged;
         FanirHealth.OnDamaged += MyHealthSystem_OnDamaged;
 
+
         //Update the health on heal.
         FanirEnemyHealth.OnHealed += EneHealthSystem_OnHealed;
         FanirHealth.OnHealed += MyHealthSystem_OnHealed;
+
     }
 
     //The hero Heal function. Once the button is pressed, this function will run.
     public void HealHero()
     {
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
         FanirHealth.Heal(Random.Range(10, 30));
-        Enemychoice();
-        MyTextChange();
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+        CircleDamage.color = Color.blue;
+        ValueToHero();
+        Delay();
     }
 
     //Attack move 1. When button is pressed, call this function.
     public void Attack_1()
     {
-        FanirEnemyHealth.Damage(7 + HeroLevelStats.KeepAttackState);
-        Debug.Log("Attack 1 power" + HeroLevelStats.KeepAttackState);
-        Enemychoice();
-        MyTextChange();
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
+        FanirEnemyHealth.Damage(5 + HeroLevelStats.KeepAttackState);
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
     }
 
     //Attack move 2. When button is pressed, call this function.
     public void Attack_2()
     {
-        FanirEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
-        Debug.Log("Attack 2 power" + HeroLevelStats.KeepAttackState);
-        
-        Enemychoice();
-        MyTextChange();
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
+        FanirEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
     }
 
     //Attack move 3. When button is pressed, call this function.
     public void Attack_3()
     {
-        FanirEnemyHealth.Damage(17 + HeroLevelStats.KeepAttackState);
-        Debug.Log("Attack 3 power" + HeroLevelStats.KeepAttackState);
-        Enemychoice();
-        MyTextChange();
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
+        FanirEnemyHealth.Damage(60 + HeroLevelStats.KeepAttackState);
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
     }
 
     //Attack move 4. When button is pressed, call this function.
     public void Attack_4()
     {
-        FanirEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
-        Debug.Log("Attack 4 power" + HeroLevelStats.KeepAttackState);
-        Enemychoice();
-        MyTextChange();
-    }
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
 
-    //Attack move 5. When button is pressed, call this function.
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
+        FanirEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
+    }
     public void Attack_5()
     {
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 2)
         {
             transform.Find("Attack5Button").GetComponent<Button>().interactable = true;
+            ButtonDelay buttonDelay = new ButtonDelay();
+            StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+            CircleDamage.enabled = true;
+            DamageText.enabled = true;
+
             FanirEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
-            Enemychoice();
-            MyTextChange();
+            CircleDamage.color = Color.green;
+            ValueToEnemy();
+            Delay();
         }
         else
         {
@@ -142,20 +169,56 @@ public class Fanir_HealthBar : MonoBehaviour
         }
     }
 
-    //Attack move 6. When button is pressed, call this function.
     public void Attack_6()
     {
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 9)
         {
-            transform.Find("Attack6Button").GetComponent<Button>().interactable = true;
+            ButtonDelay buttonDelay = new ButtonDelay();
+            StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+            CircleDamage.enabled = true;
+            DamageText.enabled = true;
+
             FanirEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
-            Enemychoice();
-            MyTextChange();
+            CircleDamage.color = Color.green;
+            ValueToEnemy();
+            Delay();
         }
         else
         {
             transform.Find("Attack6Button").GetComponent<Button>().interactable = false;
+        }
+    }
+
+    public void Delay()
+    {
+        Invoke("Enemychoice", 1);
+        Invoke("MyTextChange", 1);
+    }
+
+    //This is the where the enemy deals damage to our system, while also having a 1 in 4 changes to heal itself.
+    public void Enemychoice()
+    {
+        int randomnumnber;
+        //Generate random number between 1 to 5.
+        randomnumnber = Random.Range(1, 5);
+
+        //If the generate number is 2, the enemy hero would heal.
+        if (randomnumnber == 3)
+        {
+            FanirEnemyHealth.Heal((30));
+            CircleDamage.color = Color.yellow;
+            ValueToEnemy();
+            EmeTextChange();
+        }
+        else
+        {
+            //otherwise it would attack.
+            FanirHealth.Damage(Random.Range(5, 25) + EnemyLevelStats.EnemyKeepAttackState - HeroLevelStats.KeepDefenceState);
+            CircleDamage.color = Color.red;
+            ValueToHero();
+            EmeTextChange();
         }
     }
 
@@ -169,27 +232,14 @@ public class Fanir_HealthBar : MonoBehaviour
         MyHPText.text = FanirHealth.MyHPTextReturn();
     }
 
-    //This is the where the enemy deals damage to our system, while also having a 1 in 4 changes to heal itself.
-    public void Enemychoice()
+    public void ValueToHero()
     {
-        int randomnumnber;
-        //Generate random number between 1 to 5.
-        randomnumnber = Random.Range(1, 5);
+        DamageText.text = FanirHealth.amountValue.ToString();
+    }
 
-        //If the generate number is 2, the enemy hero would heal.
-        if (randomnumnber == 2)
-        {
-            FanirEnemyHealth.Heal((30));
-            EmeTextChange();
-        }
-        else
-        {
-            //otherwise it would attack.
-            FanirHealth.Damage(Random.Range(5, 25) + EnemyLevelStats.EnemyKeepAttackState - HeroLevelStats.KeepDefenceState);
-            Debug.Log("Test Attack" + EnemyLevelStats.EnemyKeepAttackState);
-            Debug.Log("Test Defence" + HeroLevelStats.KeepDefenceState);
-            EmeTextChange();
-        }
+    public void ValueToEnemy()
+    {
+        DamageText.text = FanirEnemyHealth.amountValue.ToString();
     }
 
     //Trigger by an event on the enemy health systyem.s

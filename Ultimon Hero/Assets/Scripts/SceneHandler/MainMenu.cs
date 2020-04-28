@@ -12,6 +12,20 @@ public class MainMenu : MonoBehaviour
     private EnemyLevelStats enemyLevelStats;
     public Text newText;
 
+    private void Start()
+    {
+        transform.Find("SecretHero").GetComponent<Button>().interactable = false;
+    }
+
+    private void Update()
+    {
+        LevelSystem levelSystem = new LevelSystem();
+        if(levelSystem.Level == 3 || levelSystem.Level == 9)
+        {
+            newText.text = "New Attack Unlocked";
+        }
+    }
+
     public void PlayGame ()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -40,7 +54,6 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("FanirGameOver");
     }
 
-
     ////////////////////////Lagoon///////////////////////////////////////
     public void Lagoon_GameOver()
     {
@@ -63,7 +76,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("PanbooGameWon");
     }
 
-
+    ////////////////////////////////////////////////////////////////////
     public void Main_Menu()
     {
         SceneManager.LoadScene("SampleScene");

@@ -3,59 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Threading.Tasks;
+
 public class Panboo_HealthBar : MonoBehaviour
 {
     //Reference to both heathbar images
     private Image BarImage;
     private Image BarImagemy;
+    private Image CircleDamage;
 
     public Text MyHPText;
     public Text EmeHPText;
+    public Text DamageText;
     public Text Attack5Text;
     public Text Attack6Text;
-    public Text ExpText;
-    public Button Attack5;
-    public Button Attack6;
-
 
     //Links the two hero classes.
     private Panboo_EneHealth PanbooEnemyHealth;
     private Panboo_Health PanbooHealth;
-    private LevelSystem levelSystem;
-    private HeroLevelStats heroLevelStats;
-    private EnemyLevelStats enemyLevelStats;
 
-    private void Awake()
+    public void Awake()
     {
-        //Gets the reference to both healthbar images.
         BarImage = transform.Find("HPBar").GetComponent<Image>();
         BarImagemy = transform.Find("MyHPBar").GetComponent<Image>();
+        CircleDamage = transform.Find("CircleDamage").GetComponent<Image>();
     }
 
-    private void Update()
+    void Update()
     {
-        EmeTextChange();
         MyTextChange();
+        EmeTextChange();
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 2)
-            Attack5Text.text = "Over Root";
+            Attack5Text.text = "Tsunami";
         else
             Attack5Text.text = "Locked";
 
         if (levelSystem.Level >= 5)
-            Attack6Text.text = "Low Punch";
+            Attack6Text.text = "Icicle";
         else
             Attack6Text.text = "Locked";
     }
+
     private void Start()
     {
-        HeroLevelStats heroLevelStats = new HeroLevelStats();
+        CircleDamage.enabled = false;
+        DamageText.enabled = false;
+
+        HeroLevelStats Panboo_States = new HeroLevelStats();
         EnemyLevelStats enemyLevelStats = new EnemyLevelStats();
 
-        heroLevelStats.PanbooStatesLevel();
+        Panboo_States.PanbooStatesLevel();
         enemyLevelStats.PanbooEnemyStatesLevel();
 
-        //start a new health system with 100 Health for both heros.
         PanbooEnemyHealth = new Panboo_EneHealth(100 + EnemyLevelStats.EnemyKeepHealthState);
         PanbooHealth = new Panboo_Health(100 + HeroLevelStats.KeepHealthState);
 
@@ -71,59 +70,97 @@ public class Panboo_HealthBar : MonoBehaviour
         //Update the health on heal.
         PanbooEnemyHealth.OnHealed += EneHealthSystem_OnHealed;
         PanbooHealth.OnHealed += MyHealthSystem_OnHealed;
+
     }
 
     //The hero Heal function. Once the button is pressed, this function will run.
     public void HealHero()
     {
-        Debug.Log("Hero Healed");
-
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
         PanbooHealth.Heal(Random.Range(10, 30));
-        Enemychoice();
-        MyTextChange();
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+        CircleDamage.color = Color.blue;
+        ValueToHero();
+        Delay();
     }
 
     //Attack move 1. When button is pressed, call this function.
     public void Attack_1()
     {
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
         PanbooEnemyHealth.Damage(5 + HeroLevelStats.KeepAttackState);
-        Enemychoice();
-        MyTextChange();
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
     }
 
     //Attack move 2. When button is pressed, call this function.
     public void Attack_2()
     {
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
         PanbooEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
-        Enemychoice();
-        MyTextChange();
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
     }
 
     //Attack move 3. When button is pressed, call this function.
     public void Attack_3()
     {
-        PanbooEnemyHealth.Damage(15 + HeroLevelStats.KeepAttackState);
-        Enemychoice();
-        MyTextChange();
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
+        PanbooEnemyHealth.Damage(60 + HeroLevelStats.KeepAttackState);
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
     }
 
     //Attack move 4. When button is pressed, call this function.
     public void Attack_4()
     {
-        PanbooEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
-        Enemychoice();
-        MyTextChange();
-    }
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
 
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
+        PanbooEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
+        CircleDamage.color = Color.green;
+        ValueToEnemy();
+        Delay();
+    }
     public void Attack_5()
     {
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 2)
         {
-            transform.Find("Attack5Button").GetComponent<Button>().interactable = true;
+            ButtonDelay buttonDelay = new ButtonDelay();
+            StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+            CircleDamage.enabled = true;
+            DamageText.enabled = true;
+
             PanbooEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
-            Enemychoice();
-            MyTextChange();
+            CircleDamage.color = Color.green;
+            ValueToEnemy();
+            Delay();
         }
         else
         {
@@ -136,15 +173,53 @@ public class Panboo_HealthBar : MonoBehaviour
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 9)
         {
-            transform.Find("Attack6Button").GetComponent<Button>().interactable = true;
+            ButtonDelay buttonDelay = new ButtonDelay();
+            StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+            CircleDamage.enabled = true;
+            DamageText.enabled = true;
+
             PanbooEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
-            Enemychoice();
-            MyTextChange();
+            CircleDamage.color = Color.green;
+            ValueToEnemy();
+            Delay();
         }
         else
         {
             transform.Find("Attack6Button").GetComponent<Button>().interactable = false;
         }
+    }
+
+    public void Delay()
+    {
+        Invoke("Enemychoice", 1);
+        Invoke("MyTextChange", 1);
+    }
+
+    //This is the where the enemy deals damage to our system, while also having a 1 in 4 changes to heal itself.
+    public void Enemychoice()
+    {
+        int randomnumnber;
+        //Generate random number between 1 to 5.
+        randomnumnber = Random.Range(1, 5);
+
+        //If the generate number is 2, the enemy hero would heal.
+        if (randomnumnber == 3)
+        {
+            PanbooEnemyHealth.Heal((30));
+            CircleDamage.color = Color.yellow;
+            ValueToEnemy();
+            EmeTextChange();
+        }
+        else
+        {
+            //otherwise it would attack.
+            PanbooHealth.Damage(Random.Range(5, 25) + EnemyLevelStats.EnemyKeepAttackState - HeroLevelStats.KeepDefenceState);
+            CircleDamage.color = Color.red;
+            ValueToHero();
+            EmeTextChange();
+        }
+
     }
 
     public void EmeTextChange()
@@ -157,24 +232,14 @@ public class Panboo_HealthBar : MonoBehaviour
         MyHPText.text = PanbooHealth.MyHPTextReturn();
     }
 
-    //This is the where the enemy deals damage to our system, while also having a 1 in 4 changes to heal itself.
-    public void Enemychoice()
+    public void ValueToHero()
     {
-        int randomnumnber;
-        //Generate random number between 1 to 5.
-        randomnumnber = Random.Range(1, 5);
+        DamageText.text = PanbooHealth.amountValue.ToString();
+    }
 
-        //If the generate number is 2, the enemy hero would heal.
-        if (randomnumnber == 2)
-        {
-            PanbooEnemyHealth.Heal((30));
-            EmeTextChange();
-        }
-        else
-        {
-            PanbooHealth.Damage(Random.Range(1, 20) + EnemyLevelStats.EnemyKeepAttackState - HeroLevelStats.KeepDefenceState);
-            EmeTextChange();
-        }
+    public void ValueToEnemy()
+    {
+        DamageText.text = PanbooEnemyHealth.amountValue.ToString();
     }
 
     //Trigger by an event on the enemy health systyem.s

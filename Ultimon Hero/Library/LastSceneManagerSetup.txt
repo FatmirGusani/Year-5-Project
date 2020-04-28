@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Lagoon/LagoonScene.unity
+- path: Assets/Scenes/IntroScenes/SampleScene.unity
   isLoaded: 1
   isActive: 1

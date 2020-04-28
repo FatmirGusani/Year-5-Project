@@ -12,6 +12,8 @@ public class Panboo_EneHealth : MonoBehaviour
 
     private int healthAmount;
     private int healthAmountMax;
+    public int amountValue;
+
 
     public Panboo_EneHealth(int healthAmount)
     {
@@ -25,7 +27,9 @@ public class Panboo_EneHealth : MonoBehaviour
         LevelSystem levelSystem = new LevelSystem();
         //if the enemy's health is less then or equal to 0.
         healthAmount -= amount;
-        if (levelSystem.Level >= 7 && healthAmount <= 0)
+        amountValue = amount;
+
+        if (levelSystem.Level >= 15 && healthAmount <= 0)
         {
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
@@ -50,6 +54,7 @@ public class Panboo_EneHealth : MonoBehaviour
     public void Heal(int amount)
     {
         healthAmount += amount;
+        amountValue = amount;
         if (healthAmount > healthAmountMax)
         {
             healthAmount = healthAmountMax;

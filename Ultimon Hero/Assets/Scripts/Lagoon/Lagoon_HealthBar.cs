@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 public class Lagoon_HealthBar : MonoBehaviour
 {
-
-    private float currentime = 0;
-    private float set = 0.1f;
-    private float timer = 0;
-
     //Reference to both heathbar images
     private Image BarImage;
     private Image BarImagemy;
@@ -21,15 +16,10 @@ public class Lagoon_HealthBar : MonoBehaviour
     public Text DamageText;
     public Text Attack5Text;
     public Text Attack6Text;
-    private Button Attack5;
-    private Button Attack6;
 
     //Links the two hero classes.
     private Lagoon_EneHealth lagoonEnemyHealth;
     private Lagoon_Health lagoonHealth;
-    private LevelSystem levelSystem;
-    private HeroLevelStats heroLevelStats;
-    private EnemyLevelStats enemyLevelStats;
 
     public void Awake()
     {
@@ -56,6 +46,8 @@ public class Lagoon_HealthBar : MonoBehaviour
 
     private void Start()
     {
+        CircleDamage.enabled = false;
+        DamageText.enabled = false;
 
         HeroLevelStats Lagoon_States = new HeroLevelStats();
         EnemyLevelStats enemyLevelStats = new EnemyLevelStats();
@@ -84,16 +76,26 @@ public class Lagoon_HealthBar : MonoBehaviour
     //The hero Heal function. Once the button is pressed, this function will run.
     public void HealHero()
     {
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
         lagoonHealth.Heal(Random.Range(10, 30));
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
         CircleDamage.color = Color.blue;
         ValueToHero();
         Delay();
-
     }
 
     //Attack move 1. When button is pressed, call this function.
     public void Attack_1()
     {
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
         lagoonEnemyHealth.Damage(5 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
         ValueToEnemy();
@@ -103,6 +105,12 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Attack move 2. When button is pressed, call this function.
     public void Attack_2()
     {
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
         lagoonEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
         ValueToEnemy();
@@ -112,16 +120,27 @@ public class Lagoon_HealthBar : MonoBehaviour
     //Attack move 3. When button is pressed, call this function.
     public void Attack_3()
     {
-        lagoonEnemyHealth.Damage(80 + HeroLevelStats.KeepAttackState);
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
+        lagoonEnemyHealth.Damage(60 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
         ValueToEnemy();
-        Enemychoice();
         Delay();
     }
 
     //Attack move 4. When button is pressed, call this function.
     public void Attack_4()
     {
+        ButtonDelay buttonDelay = new ButtonDelay();
+        StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+
         lagoonEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
         ValueToEnemy();
@@ -132,8 +151,12 @@ public class Lagoon_HealthBar : MonoBehaviour
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 2)
         {
-            //transform.Find("Attack5Button").GetComponent<Button>().interactable = false;
-            StartCoroutine(TimeoutEndTurnButton());
+            ButtonDelay buttonDelay = new ButtonDelay();
+            StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+            CircleDamage.enabled = true;
+            DamageText.enabled = true;
+
             lagoonEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
             CircleDamage.color = Color.green;
             ValueToEnemy();
@@ -145,21 +168,17 @@ public class Lagoon_HealthBar : MonoBehaviour
         }
     }
 
-
-
-    IEnumerator TimeoutEndTurnButton()
-    {
-        transform.Find("Attack5Button").GetComponent<Button>().interactable = false;
-        yield return new WaitForSeconds(2f);
-        transform.Find("Attack5Button").GetComponent<Button>().interactable = true;
-    }
-
     public void Attack_6()
     {
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 9)
         {
-            transform.Find("Attack6Button").GetComponent<Button>().interactable = true;
+            ButtonDelay buttonDelay = new ButtonDelay();
+            StartCoroutine(buttonDelay.ButtonAttackDelay());
+
+            CircleDamage.enabled = true;
+            DamageText.enabled = true;
+
             lagoonEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
             CircleDamage.color = Color.green;
             ValueToEnemy();
@@ -170,13 +189,11 @@ public class Lagoon_HealthBar : MonoBehaviour
             transform.Find("Attack6Button").GetComponent<Button>().interactable = false;    
         }
     }
-
+    
     public void Delay()
     {
-        Debug.Log("TEST !");
-        Invoke("Enemychoice", 2);
-        Debug.Log("TEST 2");
-        Invoke("MyTextChange", 2);
+        Invoke("Enemychoice", 1);
+        Invoke("MyTextChange", 1);
     }
 
     //This is the where the enemy deals damage to our system, while also having a 1 in 4 changes to heal itself.
@@ -187,7 +204,7 @@ public class Lagoon_HealthBar : MonoBehaviour
         randomnumnber = Random.Range(1, 5);
 
         //If the generate number is 2, the enemy hero would heal.
-        if (randomnumnber == 2)
+        if (randomnumnber == 3)
         {
             lagoonEnemyHealth.Heal((30));
             CircleDamage.color = Color.yellow;
@@ -202,6 +219,7 @@ public class Lagoon_HealthBar : MonoBehaviour
             ValueToHero();
             EmeTextChange();
         }
+       
     }
 
     public void EmeTextChange()
@@ -216,15 +234,14 @@ public class Lagoon_HealthBar : MonoBehaviour
 
     public void ValueToHero()
     {
-        //DamageText.fontSize = 30;
-        //DamageText.text = "Damage to hero\n";
-        //DamageText.fontSize = 30;
-        lagoonHealth.amountValue.ToString();
+        DamageText.text = lagoonHealth.amountValue.ToString();
+        Debug.Log("amountValue :" + lagoonHealth.amountValue);
     }
 
     public void ValueToEnemy()
     {
         DamageText.text = lagoonEnemyHealth.amountValue.ToString();
+        Debug.Log("amountValue :" + lagoonEnemyHealth.amountValue);
     }
 
     //Trigger by an event on the enemy health systyem.s

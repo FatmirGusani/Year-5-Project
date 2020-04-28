@@ -9,10 +9,9 @@ public class Lagoon_Health : MonoBehaviour
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
     public event EventHandler OnDeath;
-    //private LevelSystem levelSystem;
+
     //private DisplayLevel displayLevel;
-    private DisplayLevel displayLevel;
-    private LevelSystem levelSystem;
+    //private LevelSystem levelSystem;
 
     public int healthAmount;
     public int amountValue;

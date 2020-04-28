@@ -31,12 +31,10 @@ public class Lagoon_EneHealth : MonoBehaviour
         healthAmount -= amount;
         amountValue = amount;
 
-        if (levelSystem.Level >= 2 && healthAmount <= 0)
+        if (levelSystem.Level >= 15 && healthAmount <= 0)
         {
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
-            Gamebeat = true;
-            Debug.Log("Test" + Gamebeat);
         }
         else if (healthAmount <= 0)
         {
@@ -74,11 +72,6 @@ public class Lagoon_EneHealth : MonoBehaviour
     public float GetHealthNormalized()
     {
         return (float)healthAmount / healthAmountMax;
-    }
-
-    public int getdamage()
-    {
-        return healthAmount - healthAmountMax;
     }
 
     public string emeHPTextReturn()

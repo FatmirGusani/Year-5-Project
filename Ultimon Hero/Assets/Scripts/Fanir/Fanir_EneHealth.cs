@@ -12,8 +12,8 @@ public class Fanir_EneHealth : MonoBehaviour
  
     private int healthAmount;
     private int healthAmountMax;
-
-    private LevelSystem levelSystem;
+    public int amountValue;
+    public bool dead = false;
 
     public Fanir_EneHealth(int healthAmount)
     {
@@ -27,10 +27,14 @@ public class Fanir_EneHealth : MonoBehaviour
         LevelSystem levelSystem = new LevelSystem();
         //if the enemy's health is less then or equal to 0.
         healthAmount -= amount;
-        if (levelSystem.Level >= 7 && healthAmount <= 0)
+        amountValue = amount;
+
+        if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
             healthAmount = 0;
+            dead = true;
             SceneManager.LoadScene("GameBeat");
+          
         }
         else if (healthAmount <= 0)
         {
@@ -51,6 +55,7 @@ public class Fanir_EneHealth : MonoBehaviour
     public void Heal(int amount)
     {
         healthAmount += amount;
+        amountValue = amount;
         if (healthAmount > healthAmountMax)
         {
             healthAmount = healthAmountMax;
@@ -69,5 +74,10 @@ public class Fanir_EneHealth : MonoBehaviour
     public string emeHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;
+    }
+
+    public bool returnBossBeat()
+    {
+        return true;
     }
 }

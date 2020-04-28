@@ -9,16 +9,10 @@ public class Panboo_Health : MonoBehaviour
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
     public event EventHandler OnDeath;
-    //private LevelSystem levelSystem;
-    //private DisplayLevel displayLevel;
-    private DisplayLevel displayLevel;
-    private LevelSystem levelSystem;
 
     public int healthAmount;
     private int healthAmountMax;
-
-    LevelSystem level = GameObject.Find("UIHanding Object").GetComponent<LevelSystem>();
-
+    public int amountValue;
 
     public Panboo_Health(int healthAmount)
     {
@@ -32,6 +26,8 @@ public class Panboo_Health : MonoBehaviour
     {
         //if the enemy's health is less then or equal to 0.
         healthAmount -= amount;
+        amountValue = amount;
+
         if (healthAmount <= 0)
         {
             //Load the game won scene.
@@ -59,6 +55,8 @@ public class Panboo_Health : MonoBehaviour
     public void Heal(int amount)
     {
         healthAmount += amount;
+        amountValue = amount;
+
         if (healthAmount > healthAmountMax)
         {
             healthAmount = healthAmountMax;
