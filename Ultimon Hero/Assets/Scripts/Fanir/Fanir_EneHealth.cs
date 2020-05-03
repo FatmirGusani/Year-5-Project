@@ -13,7 +13,6 @@ public class Fanir_EneHealth : MonoBehaviour
     private int healthAmount;
     private int healthAmountMax;
     public int amountValue;
-    public bool dead = false;
 
     public Fanir_EneHealth(int healthAmount)
     {
@@ -31,9 +30,10 @@ public class Fanir_EneHealth : MonoBehaviour
 
         if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
+            MainMenu mainMenu = new MainMenu();
             healthAmount = 0;
-            dead = true;
             SceneManager.LoadScene("GameBeat");
+            MainMenu.FanirBossBeat = true;
           
         }
         else if (healthAmount <= 0)
@@ -74,10 +74,5 @@ public class Fanir_EneHealth : MonoBehaviour
     public string emeHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;
-    }
-
-    public bool returnBossBeat()
-    {
-        return true;
     }
 }

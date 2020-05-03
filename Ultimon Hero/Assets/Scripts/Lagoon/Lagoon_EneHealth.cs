@@ -11,11 +11,13 @@ public class Lagoon_EneHealth : MonoBehaviour
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
 
-    private bool Gamebeat = false;
+    //Delareing the script
+    private MainMenu mainMenu;
 
     private int healthAmount;
     private int healthAmountMax;
     public int amountValue;
+    public bool dead = true;
 
     public Lagoon_EneHealth(int healthAmount)
     {
@@ -31,10 +33,12 @@ public class Lagoon_EneHealth : MonoBehaviour
         healthAmount -= amount;
         amountValue = amount;
 
-        if (levelSystem.Level >= 15 && healthAmount <= 0)
+        if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
+            MainMenu mainMenu = new MainMenu();
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
+            MainMenu.LagoonBossBeat = true;
         }
         else if (healthAmount <= 0)
         {

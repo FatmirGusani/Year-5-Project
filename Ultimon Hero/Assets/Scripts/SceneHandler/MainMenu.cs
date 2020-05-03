@@ -10,20 +10,46 @@ public class MainMenu : MonoBehaviour
     private LevelSystem levelSystem;
     private HeroLevelStats heroLevelStats;
     private EnemyLevelStats enemyLevelStats;
+    private Fanir_EneHealth FanirEnemy;
     public Text newText;
+    public Button NewHero;
+    public static bool FanirBossBeat;
+    public static bool LagoonBossBeat;
+    public static bool PanbooBossBeat;
+
+    private void Awake()
+    {
+        //NewHero = GameObject.Find("SecretHero").GetComponent<Button>();
+        //NewHero.gameObject.SetActive(false);
+       
+    }
 
     private void Start()
     {
-        transform.Find("SecretHero").GetComponent<Button>().interactable = false;
+        if(FanirBossBeat)
+        { 
+            NewHero.gameObject.SetActive(true);
+        }
+        else
+        {
+            NewHero.gameObject.SetActive(false);
+        }
+       
     }
 
+    //&& LagoonBossBeat && PanbooBossBeat
     private void Update()
     {
         LevelSystem levelSystem = new LevelSystem();
-        if(levelSystem.Level == 3 || levelSystem.Level == 9)
+        if (levelSystem.Level == 3 || levelSystem.Level == 9)
         {
             newText.text = "New Attack Unlocked";
         }
+    }
+
+    public void SecretHero()
+    {
+        SceneManager.LoadScene("SecretHeroScenes");
     }
 
     public void PlayGame ()

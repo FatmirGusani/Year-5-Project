@@ -126,7 +126,7 @@ public class Fanir_HealthBar : MonoBehaviour
         CircleDamage.enabled = true;
         DamageText.enabled = true;
 
-        FanirEnemyHealth.Damage(60 + HeroLevelStats.KeepAttackState);
+        FanirEnemyHealth.Damage(100 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
         ValueToEnemy();
         Delay();

@@ -82,7 +82,6 @@
     <Compile Include="Assets\Download\CodeMonkey\Utils\World_Bar.cs" />
     <Compile Include="Assets\Download\CodeMonkey\Utils\World_Mesh.cs" />
     <Compile Include="Assets\Download\CodeMonkey\Utils\World_Sprite.cs" />
-    <Compile Include="Assets\Scripts\Award.cs" />
     <Compile Include="Assets\Scripts\Battle\ClickExample.cs" />
     <Compile Include="Assets\Scripts\Battle\EneHero.cs" />
     <Compile Include="Assets\Scripts\Battle\MyHero.cs" />
@@ -103,6 +102,7 @@
     <Compile Include="Assets\Scripts\Spawn\FanirSpawner.cs" />
     <Compile Include="Assets\Scripts\Spawn\LagoonSpawner.cs" />
     <Compile Include="Assets\Scripts\Spawn\PanbooSpawner.cs" />
+    <Compile Include="Assets\Scripts\Spawn\Spanwer.cs" />
     <Compile Include="Assets\Scripts\Stats\EnemyStats\EnemyLevelStats.cs" />
     <Compile Include="Assets\Scripts\Stats\HeroStats\HeroLevelStats.cs" />
     <Compile Include="Assets\Scripts\UI\BattleManager.cs" />

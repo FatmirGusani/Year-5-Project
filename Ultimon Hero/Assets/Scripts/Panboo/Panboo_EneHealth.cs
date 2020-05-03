@@ -29,10 +29,12 @@ public class Panboo_EneHealth : MonoBehaviour
         healthAmount -= amount;
         amountValue = amount;
 
-        if (levelSystem.Level >= 15 && healthAmount <= 0)
+        if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
+            MainMenu mainMenu = new MainMenu();
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
+            MainMenu.PanbooBossBeat = true;
         }
         else if (healthAmount <= 0)
         {

@@ -14,6 +14,7 @@ public class Fanir_Health : MonoBehaviour
     public int healthAmount;
     private int healthAmountMax;
     public int amountValue;
+
     public Fanir_Health(int healthAmount)
     {
         healthAmountMax = healthAmount;
