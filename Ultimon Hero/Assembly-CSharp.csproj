@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Battle\MyHero.cs" />
     <Compile Include="Assets\Scripts\Battle\Test123.cs" />
     <Compile Include="Assets\Scripts\Button Functions\ButtonDelay.cs" />
+    <Compile Include="Assets\Scripts\Button Functions\ButtonNewHero.cs" />
     <Compile Include="Assets\Scripts\Fanir\Fanir_EneHealth.cs" />
     <Compile Include="Assets\Scripts\Fanir\Fanir_Health.cs" />
     <Compile Include="Assets\Scripts\Fanir\Fanir_HealthBar.cs" />
@@ -99,10 +100,17 @@
     <Compile Include="Assets\Scripts\Panboo\Panboo_Health.cs" />
     <Compile Include="Assets\Scripts\Panboo\Panboo_HealthBar.cs" />
     <Compile Include="Assets\Scripts\SceneHandler\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Secret Hero\Secret_EneHealth.cs" />
+    <Compile Include="Assets\Scripts\Secret Hero\Secret_Health.cs" />
+    <Compile Include="Assets\Scripts\Secret Hero\Secret_HealthBar.cs" />
+    <Compile Include="Assets\Scripts\Spawn\FanirEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Spawn\FanirSpawner.cs" />
+    <Compile Include="Assets\Scripts\Spawn\LagoonEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Spawn\LagoonSpawner.cs" />
+    <Compile Include="Assets\Scripts\Spawn\PanbooEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Spawn\PanbooSpawner.cs" />
-    <Compile Include="Assets\Scripts\Spawn\Spanwer.cs" />
+    <Compile Include="Assets\Scripts\Spawn\SecretEnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\Spawn\SecretSpawner.cs" />
     <Compile Include="Assets\Scripts\Stats\EnemyStats\EnemyLevelStats.cs" />
     <Compile Include="Assets\Scripts\Stats\HeroStats\HeroLevelStats.cs" />
     <Compile Include="Assets\Scripts\UI\BattleManager.cs" />

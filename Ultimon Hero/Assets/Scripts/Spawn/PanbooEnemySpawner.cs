@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Spanwer : MonoBehaviour
+public class PanbooEnemySpawner: MonoBehaviour
 {
     private int rand;
 
     public Sprite[] Spawner_Pic;
 
-    private string[] Name = { "Crosaur", "Elanyte", "Hippopoke", "Pandoke", "Chimesel", "Whirlkey", "Boneleon", "Goldingale", "Quackal", "Drummingbird", "Frogre", "Super Lagoon"};
+    private string[] Name = { "Toatone", "Croros", "Crazekey", "Ramparak", "Lobsteroid", "Pandyle", "Waroda", "Chickombo", "Dradrill", "Hunteleon", "Mermantis", "Super Panboo" };
 
     public Text EnemyName;
     public Text EnemyLevel;
@@ -37,20 +37,20 @@ public class Spanwer : MonoBehaviour
     {
         LevelSystem levelSystem = new LevelSystem();
         //Gets a random number with in 0 to the Srpite array Length
-        rand = Random.Range(0,9);
+        rand = Random.Range(0, 9);
 
         //Displays the sprite that was selected by random
         GetComponent<SpriteRenderer>().sprite = Spawner_Pic[rand];
         //Displays the name that is accesed with the sprite
         EnemyName.text = " Name : " + Name[rand];
 
-        if(levelSystem.Level >= 10)
+        if (levelSystem.Level >= 5)
         {
-            
+
             GetComponent<SpriteRenderer>().sprite = Spawner_Pic[10];
             EnemyName.text = " Name : " + Name[11];
 
-            EnemyLevel.text = "Level : " + (levelSystem.Level+1);
+            EnemyLevel.text = "Level : " + (levelSystem.Level + 1);
 
 
             //EnemyLevel.text = "Level : "+1+ levelSystem.GetLevelNumber();

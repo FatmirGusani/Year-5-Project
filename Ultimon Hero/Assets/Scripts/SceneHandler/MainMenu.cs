@@ -12,30 +12,8 @@ public class MainMenu : MonoBehaviour
     private EnemyLevelStats enemyLevelStats;
     private Fanir_EneHealth FanirEnemy;
     public Text newText;
-    public Button NewHero;
-    public static bool FanirBossBeat;
-    public static bool LagoonBossBeat;
-    public static bool PanbooBossBeat;
 
-    private void Awake()
-    {
-        //NewHero = GameObject.Find("SecretHero").GetComponent<Button>();
-        //NewHero.gameObject.SetActive(false);
-       
-    }
 
-    private void Start()
-    {
-        if(FanirBossBeat)
-        { 
-            NewHero.gameObject.SetActive(true);
-        }
-        else
-        {
-            NewHero.gameObject.SetActive(false);
-        }
-       
-    }
 
     //&& LagoonBossBeat && PanbooBossBeat
     private void Update()
@@ -47,11 +25,6 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void SecretHero()
-    {
-        SceneManager.LoadScene("SecretHeroScenes");
-    }
-
     public void PlayGame ()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -60,14 +33,21 @@ public class MainMenu : MonoBehaviour
     public void FanirStarter()
     {
         SceneManager.LoadScene("FanirScene");
+
     }
     public void LagoonStarer()
     {
+        //test1 = false
         SceneManager.LoadScene("LagoonScene");
     }
     public void PanbooStarter()
     {
         SceneManager.LoadScene("PanbooScene");
+    }
+
+    public void SecretHero()
+    {
+        SceneManager.LoadScene("SecretHeroScenes");
     }
 
     ////////////////////////Fanir///////////////////////////////////////
@@ -100,6 +80,16 @@ public class MainMenu : MonoBehaviour
     public void Panboo_GameWon()
     {
         SceneManager.LoadScene("PanbooGameWon");
+    }
+
+    public void SecretHero_GameOver()
+    {
+        SceneManager.LoadScene("SecretHeroLose");
+    }
+
+    public void SecretHero_GameWon()
+    {
+        SceneManager.LoadScene("SecretHeroWin");
     }
 
     ////////////////////////////////////////////////////////////////////

@@ -32,6 +32,7 @@ public class Panboo_HealthBar : MonoBehaviour
     {
         MyTextChange();
         EmeTextChange();
+
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 2)
             Attack5Text.text = "Tsunami";
@@ -80,8 +81,8 @@ public class Panboo_HealthBar : MonoBehaviour
         StartCoroutine(buttonDelay.ButtonAttackDelay());
         PanbooHealth.Heal(Random.Range(10, 30));
 
-        CircleDamage.enabled = true;
-        DamageText.enabled = true;
+        StartCoroutine(DamageBox());
+
         CircleDamage.color = Color.blue;
         ValueToHero();
         Delay();
@@ -93,8 +94,7 @@ public class Panboo_HealthBar : MonoBehaviour
         ButtonDelay buttonDelay = new ButtonDelay();
         StartCoroutine(buttonDelay.ButtonAttackDelay());
 
-        CircleDamage.enabled = true;
-        DamageText.enabled = true;
+        StartCoroutine(DamageBox());
 
         PanbooEnemyHealth.Damage(5 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
@@ -108,8 +108,7 @@ public class Panboo_HealthBar : MonoBehaviour
         ButtonDelay buttonDelay = new ButtonDelay();
         StartCoroutine(buttonDelay.ButtonAttackDelay());
 
-        CircleDamage.enabled = true;
-        DamageText.enabled = true;
+        StartCoroutine(DamageBox());
 
         PanbooEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
@@ -123,10 +122,9 @@ public class Panboo_HealthBar : MonoBehaviour
         ButtonDelay buttonDelay = new ButtonDelay();
         StartCoroutine(buttonDelay.ButtonAttackDelay());
 
-        CircleDamage.enabled = true;
-        DamageText.enabled = true;
+        StartCoroutine(DamageBox());
 
-        PanbooEnemyHealth.Damage(60 + HeroLevelStats.KeepAttackState);
+        PanbooEnemyHealth.Damage(15 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
         ValueToEnemy();
         Delay();
@@ -138,8 +136,7 @@ public class Panboo_HealthBar : MonoBehaviour
         ButtonDelay buttonDelay = new ButtonDelay();
         StartCoroutine(buttonDelay.ButtonAttackDelay());
 
-        CircleDamage.enabled = true;
-        DamageText.enabled = true;
+        StartCoroutine(DamageBox());
 
         PanbooEnemyHealth.Damage(10 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
@@ -154,10 +151,9 @@ public class Panboo_HealthBar : MonoBehaviour
             ButtonDelay buttonDelay = new ButtonDelay();
             StartCoroutine(buttonDelay.ButtonAttackDelay());
 
-            CircleDamage.enabled = true;
-            DamageText.enabled = true;
+            StartCoroutine(DamageBox());
 
-            PanbooEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
+            PanbooEnemyHealth.Damage(17 + HeroLevelStats.KeepAttackState);
             CircleDamage.color = Color.green;
             ValueToEnemy();
             Delay();
@@ -176,10 +172,9 @@ public class Panboo_HealthBar : MonoBehaviour
             ButtonDelay buttonDelay = new ButtonDelay();
             StartCoroutine(buttonDelay.ButtonAttackDelay());
 
-            CircleDamage.enabled = true;
-            DamageText.enabled = true;
+            StartCoroutine(DamageBox());
 
-            PanbooEnemyHealth.Damage(12 + HeroLevelStats.KeepAttackState);
+            PanbooEnemyHealth.Damage(20 + HeroLevelStats.KeepAttackState);
             CircleDamage.color = Color.green;
             ValueToEnemy();
             Delay();
@@ -195,13 +190,21 @@ public class Panboo_HealthBar : MonoBehaviour
         Invoke("Enemychoice", 1);
         Invoke("MyTextChange", 1);
     }
+    IEnumerator DamageBox()
+    {
+        CircleDamage.enabled = true;
+        DamageText.enabled = true;
+        yield return new WaitForSeconds(2.0f);
+        CircleDamage.enabled = false;
+        DamageText.enabled = false;
+    }
 
     //This is the where the enemy deals damage to our system, while also having a 1 in 4 changes to heal itself.
     public void Enemychoice()
     {
         int randomnumnber;
         //Generate random number between 1 to 5.
-        randomnumnber = Random.Range(1, 5);
+        randomnumnber = Random.Range(1, 8);
 
         //If the generate number is 2, the enemy hero would heal.
         if (randomnumnber == 3)
@@ -214,7 +217,7 @@ public class Panboo_HealthBar : MonoBehaviour
         else
         {
             //otherwise it would attack.
-            PanbooHealth.Damage(Random.Range(5, 25) + EnemyLevelStats.EnemyKeepAttackState - HeroLevelStats.KeepDefenceState);
+            PanbooHealth.Damage(Random.Range(5, 20) + EnemyLevelStats.EnemyKeepAttackState - HeroLevelStats.KeepDefenceState);
             CircleDamage.color = Color.red;
             ValueToHero();
             EmeTextChange();

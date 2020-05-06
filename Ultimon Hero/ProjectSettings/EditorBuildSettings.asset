@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Secret Hero/SecretHeroScenes.unity
     guid: 942fed252b0c68e4faa0e98d3658d1ea
+  - enabled: 1
+    path: Assets/Scenes/Secret Hero/SecretHeroLose.unity
+    guid: 978ddd1ddbd07d04baddd398f45f10bc
+  - enabled: 1
+    path: Assets/Scenes/Secret Hero/SecretHeroWin.unity
+    guid: ae275fe5ff2034f488fc9f440a98ac2f
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

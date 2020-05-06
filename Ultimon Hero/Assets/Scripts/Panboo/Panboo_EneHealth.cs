@@ -31,10 +31,10 @@ public class Panboo_EneHealth : MonoBehaviour
 
         if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
-            MainMenu mainMenu = new MainMenu();
+            ButtonNewHero newHero = new ButtonNewHero();
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
-            MainMenu.PanbooBossBeat = true;
+            ButtonNewHero.PanbooBossBeat = true;
         }
         else if (healthAmount <= 0)
         {

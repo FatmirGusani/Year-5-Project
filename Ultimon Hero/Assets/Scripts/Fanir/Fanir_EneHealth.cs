@@ -30,10 +30,11 @@ public class Fanir_EneHealth : MonoBehaviour
 
         if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
-            MainMenu mainMenu = new MainMenu();
+            ButtonNewHero newHero = new ButtonNewHero();
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
-            MainMenu.FanirBossBeat = true;
+            ButtonNewHero.FanirBossBeat = true;
+            Debug.Log("got ");
           
         }
         else if (healthAmount <= 0)
