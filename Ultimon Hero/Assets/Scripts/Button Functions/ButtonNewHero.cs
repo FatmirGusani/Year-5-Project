@@ -12,7 +12,9 @@ public class ButtonNewHero : MonoBehaviour
 
     private void Start()
     {
-        if (FanirBossBeat && LagoonBossBeat && PanbooBossBeat)
+        //if all the bosses are beat, secret her button appears otherwise it hidden
+        //if (FanirBossBeat && LagoonBossBeat && PanbooBossBeat)
+        if (FanirBossBeat)
         {
             NewHero.gameObject.SetActive(true);
         }

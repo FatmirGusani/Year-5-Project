@@ -9,15 +9,11 @@ public class PanbooEnemySpawner: MonoBehaviour
 
     public Sprite[] Spawner_Pic;
 
+    //array of names
     private string[] Name = { "Toatone", "Croros", "Crazekey", "Ramparak", "Lobsteroid", "Pandyle", "Waroda", "Chickombo", "Dradrill", "Hunteleon", "Mermantis", "Super Panboo" };
 
     public Text EnemyName;
     public Text EnemyLevel;
-
-
-    private int number;
-
-    private LevelSystem levelSystem;
 
     private void Awake()
     {
@@ -51,10 +47,6 @@ public class PanbooEnemySpawner: MonoBehaviour
             EnemyName.text = " Name : " + Name[11];
 
             EnemyLevel.text = "Level : " + (levelSystem.Level + 1);
-
-
-            //EnemyLevel.text = "Level : "+1+ levelSystem.GetLevelNumber();
-            Debug.Log("TEST FOR FINAL BOSS");
         }
     }
 }

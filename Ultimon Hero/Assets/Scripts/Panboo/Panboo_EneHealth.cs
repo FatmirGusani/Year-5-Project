@@ -29,8 +29,10 @@ public class Panboo_EneHealth : MonoBehaviour
         healthAmount -= amount;
         amountValue = amount;
 
+        //Boss battle trigger//
         if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
+            //if the button is beaten//
             ButtonNewHero newHero = new ButtonNewHero();
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
@@ -41,7 +43,6 @@ public class Panboo_EneHealth : MonoBehaviour
             //Load the game won scene.
             healthAmount = 0;
             SceneManager.LoadScene("PanbooGameWon");
-            //LevelSystem levelSystem = new LevelSystem();
             levelSystem.AddExperience(100);
             levelSystem.ReturnExpText();
         }
@@ -72,6 +73,8 @@ public class Panboo_EneHealth : MonoBehaviour
     {
         return (float)healthAmount / healthAmountMax;
     }
+
+    //returns the current health out of max health
     public string emeHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;

@@ -10,9 +10,6 @@ public class Lagoon_Health : MonoBehaviour
     public event EventHandler OnHealed;
     public event EventHandler OnDeath;
 
-    //private DisplayLevel displayLevel;
-    //private LevelSystem levelSystem;
-
     public int healthAmount;
     public int amountValue;
     private int healthAmountMax;
@@ -67,6 +64,8 @@ public class Lagoon_Health : MonoBehaviour
     {
         return (float)healthAmount / healthAmountMax;
     }
+
+    //returns the current health out of max health
     public string MyHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;

@@ -19,6 +19,7 @@ public class SecretSpawner : MonoBehaviour
 
     void RaySpawn()
     {
+        //spawn new hero//
         GetComponent<SpriteRenderer>().sprite = Spawner_Pic[0];
         Name.text = " Name : " + Namelist[0];
     }

@@ -24,25 +24,24 @@ public class Fanir_EneHealth : MonoBehaviour
     public void Damage(int amount)
     {
         LevelSystem levelSystem = new LevelSystem();
-        //if the enemy's health is less then or equal to 0.
+        //if the enemy's health is less than or equal to 0.
         healthAmount -= amount;
         amountValue = amount;
 
+        //Boss battle trigger//
         if (levelSystem.Level >= 2 && healthAmount <= 0)
         {
+            //if the button is beaten//
             ButtonNewHero newHero = new ButtonNewHero();
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
             ButtonNewHero.FanirBossBeat = true;
-            Debug.Log("got ");
-          
         }
         else if (healthAmount <= 0)
         {
             //Load the game won scene.
             healthAmount = 0;
             SceneManager.LoadScene("FanirGameWon");
-            //LevelSystem levelSystem = new LevelSystem();
             levelSystem.AddExperience(100);
             levelSystem.ReturnExpText();
         }
@@ -72,6 +71,8 @@ public class Fanir_EneHealth : MonoBehaviour
     {
         return (float)healthAmount / healthAmountMax;
     }
+
+    //returns the current health out of max health
     public string emeHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;

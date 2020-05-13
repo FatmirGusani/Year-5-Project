@@ -11,13 +11,9 @@ public class Lagoon_EneHealth : MonoBehaviour
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
 
-    //Delareing the script
-    private MainMenu mainMenu;
-
     private int healthAmount;
     private int healthAmountMax;
     public int amountValue;
-    public bool dead = true;
 
     public Lagoon_EneHealth(int healthAmount)
     {
@@ -33,8 +29,10 @@ public class Lagoon_EneHealth : MonoBehaviour
         healthAmount -= amount;
         amountValue = amount;
 
-        if (levelSystem.Level >= 2 && healthAmount <= 0)
+        //Boss battle trigger//
+        if (levelSystem.Level >= 15 && healthAmount <= 0)
         {
+            //if the button is beaten//
             ButtonNewHero newHero = new ButtonNewHero();
             healthAmount = 0;
             SceneManager.LoadScene("GameBeat");
@@ -78,6 +76,7 @@ public class Lagoon_EneHealth : MonoBehaviour
         return (float)healthAmount / healthAmountMax;
     }
 
+    //returns the current health out of max health
     public string emeHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;

@@ -15,6 +15,7 @@ public class ButtonDelay : MonoBehaviour
 
     void Awake()
     {
+        //Gets the reference//
         Attack1 = GetComponent<Button>();
         Attack2 = GetComponent<Button>();
         Attack3 = GetComponent<Button>();
@@ -22,11 +23,11 @@ public class ButtonDelay : MonoBehaviour
         Attack5 = GetComponent<Button>();
         Attack6 = GetComponent<Button>();
         Heal = GetComponent<Button>();
-        
     }
 
     public IEnumerator ButtonAttackDelay()
     {
+        //Disables all the buttons//
         Attack1 = GameObject.Find("Attack1Button").GetComponent<Button>();
         Attack1.interactable = false;
 
@@ -48,8 +49,10 @@ public class ButtonDelay : MonoBehaviour
         Heal = GameObject.Find("HealButton").GetComponent<Button>();
         Heal.interactable = false;
 
+        //Wait 2 second//
         yield return new WaitForSeconds(2f);
 
+        //Enable all button//
         Attack1 = GameObject.Find("Attack1Button").GetComponent<Button>();
         Attack1.interactable = true;
 
@@ -70,6 +73,5 @@ public class ButtonDelay : MonoBehaviour
 
         Heal = GameObject.Find("HealButton").GetComponent<Button>();
         Heal.interactable = true;
-
     }
 }

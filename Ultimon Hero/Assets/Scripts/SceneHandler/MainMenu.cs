@@ -6,20 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private DisplayLevel displayLevel;
-    private LevelSystem levelSystem;
-    private HeroLevelStats heroLevelStats;
-    private EnemyLevelStats enemyLevelStats;
-    private Fanir_EneHealth FanirEnemy;
     public Text newText;
-
-
 
     //&& LagoonBossBeat && PanbooBossBeat
     private void Update()
     {
         LevelSystem levelSystem = new LevelSystem();
-        if (levelSystem.Level == 3 || levelSystem.Level == 9)
+        if (levelSystem.Level == 2 || levelSystem.Level == 9)
         {
             newText.text = "New Attack Unlocked";
         }
@@ -33,18 +26,15 @@ public class MainMenu : MonoBehaviour
     public void FanirStarter()
     {
         SceneManager.LoadScene("FanirScene");
-
     }
     public void LagoonStarer()
     {
-        //test1 = false
         SceneManager.LoadScene("LagoonScene");
     }
     public void PanbooStarter()
     {
         SceneManager.LoadScene("PanbooScene");
     }
-
     public void SecretHero()
     {
         SceneManager.LoadScene("SecretHeroScenes");
@@ -82,6 +72,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("PanbooGameWon");
     }
 
+    ////////////////////////Secret Hero///////////////////////////////////////
     public void SecretHero_GameOver()
     {
         SceneManager.LoadScene("SecretHeroLose");
@@ -92,7 +83,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("SecretHeroWin");
     }
 
-    ////////////////////////////////////////////////////////////////////
+    //Reset Everything once main menu button clicked.
     public void Main_Menu()
     {
         SceneManager.LoadScene("SampleScene");

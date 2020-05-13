@@ -6,38 +6,36 @@ using UnityEngine.UI;
 
 public class DisplayLevel : MonoBehaviour
 {
-   // public Text MyHPText;
     private Text ExpText;
     private Text LevelText;
     private Image ExpBar;
-    private Button Attack5;
-    private Button Attack6;
 
     private LevelSystem levelSystem;
-
-
 
     private void Awake()
     {
         ExpText = transform.Find("ExpText").GetComponent<Text>();
         LevelText = transform.Find("Level").GetComponent<Text>();
         ExpBar = transform.Find("ExpBar").GetComponent<Image>();
-        Attack5 = transform.Find("ExpBar").GetComponent<Button>();
 
         LevelSystem levelSystem = new LevelSystem();
         SetLevelSystem(levelSystem);
     }
 
+    
     void Update()
     {
+        //Update the experince
         MyExpTextChange();
     }
 
+    //dispays the level//
     private void SetLevelNumber (int LevelNumber)
     { 
         LevelText.text = "Level : " + LevelNumber;
     }
 
+    //gets the current experience out of max experience//
     public void MyExpTextChange()
     {
         ExpText.text = levelSystem.ReturnExpText(); 
@@ -69,6 +67,7 @@ public class DisplayLevel : MonoBehaviour
         SetExperienceBarSize(levelSystem.GetExperienceNormalized());
     }
 
+    //fills the experience bar to the current experience//
     private void SetExperienceBarSize(float ExperienceNormalized)
     {
         ExpBar.fillAmount = ExperienceNormalized;

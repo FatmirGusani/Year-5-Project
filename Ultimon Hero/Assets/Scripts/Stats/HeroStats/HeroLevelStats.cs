@@ -19,65 +19,84 @@ public class HeroLevelStats : MonoBehaviour
         PanbooStatesLevel();
     }
 
+    //Fanir stats boost
     public void FanirStatesLevel()
     {
+        //Every 3 level get more attack boost//
         LevelSystem levelSystem = new LevelSystem();
-        if (levelSystem.Level % 2 == 0)
+        if (levelSystem.Level % 3 == 0)
+        {
+            AttackIncreaseLevel += 7;
+            KeepAttackState = AttackIncreaseLevel;
+        }
+        //every 2 level gets defence and health boost//
+        if(levelSystem.Level % 2 == 0)
         {
             HealthIncreaseLevel += Random.Range(3, 8);
             KeepHealthState = HealthIncreaseLevel;
-            AttackIncreaseLevel += 10;
-            KeepAttackState = AttackIncreaseLevel;
             DefenceIncreaseLevel += Random.Range(3, 8);
             KeepDefenceState = DefenceIncreaseLevel;
         }
         else
         {
+            //otherwise no stats boost//
             AttackIncreaseLevel = KeepAttackState;
             HealthIncreaseLevel = KeepHealthState;
             DefenceIncreaseLevel = KeepDefenceState;
         }
     }
 
+    //lagoon stats boost
     public void LagoonStatesLevel()
     {
+        //Every 3 level get more attack boost//
         LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 3 == 0)
+        {
+            AttackIncreaseLevel += Random.Range(3, 8);
+            KeepAttackState = AttackIncreaseLevel;
+        }
+        //every 2 level gets defence and health boost//
         if (levelSystem.Level % 2 == 0)
         {
             HealthIncreaseLevel += 10;
             KeepHealthState = HealthIncreaseLevel;
-            AttackIncreaseLevel += Random.Range(3, 8);
-            KeepAttackState = AttackIncreaseLevel;
             DefenceIncreaseLevel += Random.Range(3, 8);
             KeepDefenceState = DefenceIncreaseLevel;
         }
         else
         {
+            //otherwise no stats boost//
             AttackIncreaseLevel = KeepAttackState;
             HealthIncreaseLevel = KeepHealthState;
             DefenceIncreaseLevel = KeepDefenceState;
         }
     }
 
+    //panboo stats boost
     public void PanbooStatesLevel()
     {
+        //Every 3 level get more attack boost//
         LevelSystem levelSystem = new LevelSystem();
+        if (levelSystem.Level % 3 == 0)
+        {
+            AttackIncreaseLevel += Random.Range(3, 8);
+            KeepAttackState = AttackIncreaseLevel;
+        }
+        //every 2 level gets defence and health boost//
         if (levelSystem.Level % 2 == 0)
         {
             HealthIncreaseLevel += Random.Range(3, 8);
             KeepHealthState = HealthIncreaseLevel;
-            AttackIncreaseLevel += Random.Range(3, 8);
-            KeepAttackState = AttackIncreaseLevel;
             DefenceIncreaseLevel += 10;
             KeepDefenceState = DefenceIncreaseLevel;
         }
         else
         {
+            //otherwise no stats boost//
             AttackIncreaseLevel = KeepAttackState;
             HealthIncreaseLevel = KeepHealthState;
             DefenceIncreaseLevel = KeepDefenceState;
         }
     }
-
-
 }

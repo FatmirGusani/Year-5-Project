@@ -23,6 +23,7 @@ public class Panboo_HealthBar : MonoBehaviour
 
     public void Awake()
     {
+        //Initzilse the components to the name before game start//
         BarImage = transform.Find("HPBar").GetComponent<Image>();
         BarImagemy = transform.Find("MyHPBar").GetComponent<Image>();
         CircleDamage = transform.Find("CircleDamage").GetComponent<Image>();
@@ -30,9 +31,11 @@ public class Panboo_HealthBar : MonoBehaviour
 
     void Update()
     {
+        //Update the my health and enemy health change//
         MyTextChange();
         EmeTextChange();
 
+        //This handles unlocking the new attacks name//
         LevelSystem levelSystem = new LevelSystem();
         if (levelSystem.Level >= 2)
             Attack5Text.text = "Tsunami";
@@ -47,15 +50,19 @@ public class Panboo_HealthBar : MonoBehaviour
 
     private void Start()
     {
+        //game starts and hids the square and text
         CircleDamage.enabled = false;
         DamageText.enabled = false;
 
+        //Creates and instance of Fanir stats
         HeroLevelStats Panboo_States = new HeroLevelStats();
         EnemyLevelStats enemyLevelStats = new EnemyLevelStats();
 
+        //calls function every time the game start//
         Panboo_States.PanbooStatesLevel();
         enemyLevelStats.PanbooEnemyStatesLevel();
 
+        //creates an instant of the health for both characters and sets the health//
         PanbooEnemyHealth = new Panboo_EneHealth(100 + EnemyLevelStats.EnemyKeepHealthState);
         PanbooHealth = new Panboo_Health(100 + HeroLevelStats.KeepHealthState);
 
@@ -77,12 +84,17 @@ public class Panboo_HealthBar : MonoBehaviour
     //The hero Heal function. Once the button is pressed, this function will run.
     public void HealHero()
     {
+        //Disables the buttons buttonAttackDelay
         ButtonDelay buttonDelay = new ButtonDelay();
+
+        //Random Value goes into heal functon for Panboo//
         StartCoroutine(buttonDelay.ButtonAttackDelay());
         PanbooHealth.Heal(Random.Range(10, 30));
 
+        //starts the damagebox function//
         StartCoroutine(DamageBox());
 
+        //changes the box colour + shows the heal value + calls the delay function//
         CircleDamage.color = Color.blue;
         ValueToHero();
         Delay();
@@ -91,11 +103,13 @@ public class Panboo_HealthBar : MonoBehaviour
     //Attack move 1. When button is pressed, call this function.
     public void Attack_1()
     {
+        //Disables button
         ButtonDelay buttonDelay = new ButtonDelay();
         StartCoroutine(buttonDelay.ButtonAttackDelay());
 
         StartCoroutine(DamageBox());
 
+        //sents damage to Enemy health//
         PanbooEnemyHealth.Damage(5 + HeroLevelStats.KeepAttackState);
         CircleDamage.color = Color.green;
         ValueToEnemy();
@@ -146,8 +160,13 @@ public class Panboo_HealthBar : MonoBehaviour
     public void Attack_5()
     {
         LevelSystem levelSystem = new LevelSystem();
-        if (levelSystem.Level >= 2)
+        //checks if level is 3 or geater
+        if (levelSystem.Level >= 3)
         {
+            //Enables the button///
+            transform.Find("Attack5Button").GetComponent<Button>().interactable = true;
+
+            //same as normal attack//
             ButtonDelay buttonDelay = new ButtonDelay();
             StartCoroutine(buttonDelay.ButtonAttackDelay());
 
@@ -160,6 +179,7 @@ public class Panboo_HealthBar : MonoBehaviour
         }
         else
         {
+            //if level is lower then 3, keep button disabled
             transform.Find("Attack5Button").GetComponent<Button>().interactable = false;
         }
     }
@@ -167,6 +187,7 @@ public class Panboo_HealthBar : MonoBehaviour
     public void Attack_6()
     {
         LevelSystem levelSystem = new LevelSystem();
+        //checks if level is 9 or geater
         if (levelSystem.Level >= 9)
         {
             ButtonDelay buttonDelay = new ButtonDelay();
@@ -181,32 +202,38 @@ public class Panboo_HealthBar : MonoBehaviour
         }
         else
         {
+            //if level is lower then 9, keep button disabled
             transform.Find("Attack6Button").GetComponent<Button>().interactable = false;
         }
     }
 
     public void Delay()
     {
+        //call invoke api and runs the EnemyChoice for 1 second
         Invoke("Enemychoice", 1);
+        //call invoke api and runs the MyTextChange for 1 second
         Invoke("MyTextChange", 1);
     }
     IEnumerator DamageBox()
     {
+        //makes the button appear
         CircleDamage.enabled = true;
         DamageText.enabled = true;
+        //waits for 2 second
         yield return new WaitForSeconds(2.0f);
+        //hids the button//
         CircleDamage.enabled = false;
         DamageText.enabled = false;
     }
 
-    //This is the where the enemy deals damage to our system, while also having a 1 in 4 changes to heal itself.
+    //This is the where the enemy deals damage to hero health system//
     public void Enemychoice()
     {
         int randomnumnber;
-        //Generate random number between 1 to 5.
+        //Generate random number between 1 to 8.
         randomnumnber = Random.Range(1, 8);
 
-        //If the generate number is 2, the enemy hero would heal.
+        //If the generate number is 3, the enemy hero would heal.
         if (randomnumnber == 3)
         {
             PanbooEnemyHealth.Heal((30));
@@ -225,21 +252,25 @@ public class Panboo_HealthBar : MonoBehaviour
 
     }
 
+    //changes the number inside the health bar
     public void EmeTextChange()
     {
         EmeHPText.text = PanbooEnemyHealth.emeHPTextReturn();
     }
 
+    //changes the number inside the health bar
     public void MyTextChange()
     {
         MyHPText.text = PanbooHealth.MyHPTextReturn();
     }
 
+    //gets the damage value to hero health
     public void ValueToHero()
     {
         DamageText.text = PanbooHealth.amountValue.ToString();
     }
 
+    //gets the damage value to enemy health
     public void ValueToEnemy()
     {
         DamageText.text = PanbooEnemyHealth.amountValue.ToString();

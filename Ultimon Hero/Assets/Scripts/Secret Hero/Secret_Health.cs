@@ -34,6 +34,7 @@ public class Secret_Health : MonoBehaviour
             SceneManager.LoadScene("SecretHeroLose");
 
             LevelSystem levelSystem = new LevelSystem();
+
             levelSystem.AddExperience(25);
             levelSystem.ReturnExpText();
         }
@@ -63,6 +64,8 @@ public class Secret_Health : MonoBehaviour
     {
         return (float)healthAmount / healthAmountMax;
     }
+
+    //returns the current health out of max health
     public string MyHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;

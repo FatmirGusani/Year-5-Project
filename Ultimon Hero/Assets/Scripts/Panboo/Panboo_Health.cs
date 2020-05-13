@@ -8,7 +8,6 @@ public class Panboo_Health : MonoBehaviour
     //Events notofiys when the health changes.
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
-    public event EventHandler OnDeath;
 
     public int healthAmount;
     private int healthAmountMax;
@@ -20,8 +19,7 @@ public class Panboo_Health : MonoBehaviour
         this.healthAmount = healthAmount;
     }
 
-
-    //This function damages the enemy's health 
+    //This function damages the hero's health 
     public void Damage(int amount)
     {
         //if the enemy's health is less then or equal to 0.
@@ -32,26 +30,20 @@ public class Panboo_Health : MonoBehaviour
         {
             //Load the game won scene.
             healthAmount = 0;
-
-            Debug.Log("YOU LOSE");
-
             SceneManager.LoadScene("PanbooGameOver");
+
+            LevelSystem levelSystem = new LevelSystem();
+
+            levelSystem.AddExperience(25);
+            levelSystem.ReturnExpText();
         }
         if (OnDamaged != null)
         {
             OnDamaged(this, EventArgs.Empty);
         }
-
-        if (healthAmount == 0)
-        {
-            LevelSystem levelSystem = new LevelSystem();
-            levelSystem.AddExperience(25);
-            levelSystem.ReturnExpText();
-            //levelSystem.AddExperience()
-        }
     }
 
-    //This function heals the enemy's health 
+    //This function heals the hero's health 
     public void Heal(int amount)
     {
         healthAmount += amount;
@@ -72,6 +64,8 @@ public class Panboo_Health : MonoBehaviour
     {
         return (float)healthAmount / healthAmountMax;
     }
+
+    //returns the current health out of max health
     public string MyHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;

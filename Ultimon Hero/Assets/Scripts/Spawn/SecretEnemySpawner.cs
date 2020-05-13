@@ -9,6 +9,7 @@ public class SecretEnemySpawner : MonoBehaviour
 
     public Sprite[] Spawner_Pic;
 
+    //array of names//
     private string[] Name = { "Wallabyss", "Toalow", "Penguna", "Mantitar", "Kineling", "Magmelope", "Wintora", "Dracaza", "Quackal", "Staropotamus", "Territe", "Super Fanir",
                               "Toatone", "Croros", "Crazekey", "Ramparak", "Lobsteroid", "Pandyle", "Waroda", "Chickombo", "Dradrill", "Hunteleon", "Mermantis", "Super Panboo",
                               "Crosaur", "Elanyte", "Hippopoke", "Pandoke", "Chimesel", "Whirlkey", "Boneleon", "Goldingale", "Quackal", "Drummingbird", "Frogre", "Scorpilite",

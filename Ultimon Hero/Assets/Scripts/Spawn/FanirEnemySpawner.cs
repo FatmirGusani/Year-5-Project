@@ -9,15 +9,11 @@ public class FanirEnemySpawner : MonoBehaviour
 
     public Sprite[] Spawner_Pic;
 
+    //arrray of names//
     private string[] Name = { "Wallabyss", "Toalow", "Penguna", "Mantitar", "Kineling", "Magmelope", "Wintora", "Dracaza", "Quackal", "Staropotamus", "Territe", "Super Fanir" };
 
     public Text EnemyName;
     public Text EnemyLevel;
-
-
-    private int number;
-
-    private LevelSystem levelSystem;
 
     private void Awake()
     {
@@ -44,17 +40,13 @@ public class FanirEnemySpawner : MonoBehaviour
         //Displays the name that is accesed with the sprite
         EnemyName.text = " Name : " + Name[rand];
 
-        if (levelSystem.Level >= 5)
+        //boss sprite//
+        if (levelSystem.Level >= 2)
         {
-
             GetComponent<SpriteRenderer>().sprite = Spawner_Pic[10];
             EnemyName.text = " Name : " + Name[11];
 
             EnemyLevel.text = "Level : " + (levelSystem.Level + 1);
-
-
-            //EnemyLevel.text = "Level : "+1+ levelSystem.GetLevelNumber();
-            Debug.Log("TEST FOR FINAL BOSS");
         }
     }
 }

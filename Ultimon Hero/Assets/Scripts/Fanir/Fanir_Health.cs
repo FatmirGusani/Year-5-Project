@@ -24,7 +24,7 @@ public class Fanir_Health : MonoBehaviour
     //This function damages the hero's health 
     public void Damage(int amount)
     {
-        //if the heros's health is less then or equal to 0.
+        //if the heros's health is less than or equal to 0.
         healthAmount -= amount;
         amountValue = amount;
         if (healthAmount <= 0)
@@ -34,6 +34,7 @@ public class Fanir_Health : MonoBehaviour
             SceneManager.LoadScene("FanirGameOver");
 
             LevelSystem levelSystem = new LevelSystem();
+
             levelSystem.AddExperience(25);
             levelSystem.ReturnExpText();
         }
@@ -43,11 +44,11 @@ public class Fanir_Health : MonoBehaviour
         } 
     }
 
-    //This function heals the enemy's health 
+    //This function heals the hero's health 
     public void Heal(int amount)
     {
-        amountValue = amount;
         healthAmount += amount;
+        amountValue = amount;
         if (healthAmount > healthAmountMax)
         {
             healthAmount = healthAmountMax;
@@ -63,6 +64,8 @@ public class Fanir_Health : MonoBehaviour
     {
         return (float)healthAmount / healthAmountMax;
     }
+
+    //returns the current health out of max health
     public string MyHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;

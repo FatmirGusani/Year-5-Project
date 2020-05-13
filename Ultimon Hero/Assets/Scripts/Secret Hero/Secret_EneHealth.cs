@@ -14,6 +14,7 @@ public class Secret_EneHealth : MonoBehaviour
     private int healthAmountMax;
     public int amountValue;
 
+
     public Secret_EneHealth(int healthAmount)
     {
         healthAmountMax = healthAmount;
@@ -63,6 +64,8 @@ public class Secret_EneHealth : MonoBehaviour
     {
         return (float)healthAmount / healthAmountMax;
     }
+
+    //returns the current health out of max health
     public string emeHPTextReturn()
     {
         return healthAmount + "/" + healthAmountMax;
